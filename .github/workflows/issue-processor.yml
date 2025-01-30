@@ -1,0 +1,150 @@
+name: Issue Processor
+
+on:
+  issues:
+    types: [opened, edited, labeled, unlabeled, closed, reopened]
+
+jobs:
+  process-issue:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: read
+      contents: write
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Get issue data
+        id: issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const labels = issue.labels.map(l => l.name);
+            
+            // Extract affected systems from labels
+            const systemLabels = labels.filter(l => 
+              ['api', 'web', 'database'].includes(l.toLowerCase())
+            );
+            
+            // Determine severity from labels
+            let severity = 'minor';
+            if (labels.includes('critical')) severity = 'major_outage';
+            else if (labels.includes('major')) severity = 'partial_outage';
+            else if (labels.includes('minor')) severity = 'degraded';
+            
+            // Format the issue data
+            const issueData = {
+              id: issue.number.toString(),
+              title: issue.title,
+              body: issue.body,
+              status: issue.state === 'closed' ? 'resolved' : 'investigating',
+              severity,
+              systems: systemLabels,
+              created_at: issue.created_at,
+              updated_at: issue.updated_at,
+              resolved_at: issue.closed_at || null
+            };
+            
+            core.setOutput('issueData', JSON.stringify(issueData));
+            
+      - name: Update status data
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const issueData = JSON.parse(process.env.ISSUE_DATA);
+            
+            // Read current status
+            const statusFile = 'data/status.json';
+            const status = JSON.parse(fs.readFileSync(statusFile, 'utf8'));
+            
+            // Update last_updated timestamp
+            status.last_updated = new Date().toISOString();
+            
+            // Process the issue
+            if (issueData.status === 'resolved') {
+              // Move from active to resolved
+              status.incidents.active = status.incidents.active.filter(i => i.id !== issueData.id);
+              status.incidents.resolved.unshift(issueData);
+              
+              // Update system statuses to operational
+              issueData.systems.forEach(sys => {
+                if (status.current_status[sys]) {
+                  status.current_status[sys].status = 'operational';
+                  status.current_status[sys].active_incidents = 
+                    status.current_status[sys].active_incidents.filter(i => i !== issueData.id);
+                }
+              });
+            } else {
+              // Add/Update in active incidents
+              const activeIndex = status.incidents.active.findIndex(i => i.id === issueData.id);
+              if (activeIndex >= 0) {
+                status.incidents.active[activeIndex] = issueData;
+              } else {
+                status.incidents.active.unshift(issueData);
+              }
+              
+              // Update system statuses
+              issueData.systems.forEach(sys => {
+                if (status.current_status[sys]) {
+                  status.current_status[sys].status = issueData.severity;
+                  if (!status.current_status[sys].active_incidents.includes(issueData.id)) {
+                    status.current_status[sys].active_incidents.push(issueData.id);
+                  }
+                }
+              });
+            }
+            
+            // Update history
+            const today = new Date().toISOString().split('T')[0];
+            if (!status.history[today]) {
+              status.history[today] = {};
+              Object.keys(status.current_status).forEach(sys => {
+                status.history[today][sys] = {
+                  status: 'operational',
+                  incidents: []
+                };
+              });
+            }
+            
+            // Update today's history
+            issueData.systems.forEach(sys => {
+              if (status.history[today][sys]) {
+                status.history[today][sys].status = status.current_status[sys].status;
+                if (!status.history[today][sys].incidents.includes(issueData.id)) {
+                  status.history[today][sys].incidents.push(issueData.id);
+                }
+              }
+            });
+            
+            // Write updated status
+            fs.writeFileSync(statusFile, JSON.stringify(status, null, 2));
+        env:
+          ISSUE_DATA: ${{ steps.issue.outputs.issueData }}
+          
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add data/status.json
+          git commit -m "update: status data from issue #${{ github.event.issue.number }}"
+          git push
+          
+      - name: Build site
+        run: npm run build
+        
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
