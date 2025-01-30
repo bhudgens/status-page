@@ -297,78 +297,59 @@ footer {
 /* Weekly Status Table */
 .weekly-table {
     width: 100%;
-    border-collapse: collapse;
     margin-top: 0.75rem;
-    font-size: 0.85rem;
-}
-
-.weekly-table th {
-    padding: 0.5rem;
-    font-weight: 500;
-    color: #666;
-    font-size: 0.8rem;
-    border: 1px solid #eee;
-    background: #fff;
-}
-
-.weekly-table td {
-    height: 30px;
-    width: 30px;
-    padding: 0;
-    border: 1px solid #eee;
-    position: relative;
-    cursor: pointer;
-}
-
-.weekly-table td.status-operational {
-    background-color: #2ecc71;
-}
-
-.weekly-table td.status-degraded {
-    background-color: #f1c40f;
-}
-
-.weekly-table td.status-partial_outage {
-    background-color: #e67e22;
-}
-
-.weekly-table td.status-major_outage {
-    background-color: #e74c3c;
-}
-
-.weekly-table td.status-no_data {
-    background-color: #ecf0f1;
-}
-
-.weekly-table td:hover .weekly-tooltip {
-    display: block;
-}
-
-.weekly-tooltip {
-    display: none;
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #333;
-    color: white;
-    padding: 0.4rem 0.6rem;
+    background-color: #fff;
     border-radius: 4px;
-    font-size: 0.75rem;
-    white-space: nowrap;
-    z-index: 10;
-    margin-bottom: 5px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
-.weekly-tooltip::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 4px;
-    border-style: solid;
-    border-color: #333 transparent transparent transparent;
+.weekly-table th,
+.weekly-table td {
+    padding: 0.75rem;
+    vertical-align: middle;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.weekly-table thead th {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+    font-weight: 600;
+    color: #495057;
+    font-size: 0.9rem;
+}
+
+.weekly-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.weekly-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.status-cell {
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.status-cell.status-operational {
+    color: #28a745;
+}
+
+.status-cell.status-degraded {
+    color: #ffc107;
+}
+
+.status-cell.status-partial_outage {
+    color: #fd7e14;
+}
+
+.status-cell.status-major_outage {
+    color: #dc3545;
+}
+
+.status-cell.status-no_data {
+    color: #6c757d;
 }
 
 /* Active Incidents */
