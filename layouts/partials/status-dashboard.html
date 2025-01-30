@@ -1,7 +1,7 @@
-{{ $status := .Site.Data.status }}
-{{ $systems := .Site.Data.systems.systems }}
-
 <div class="status-dashboard">
+    {{ $status := .Site.Data.status }}
+    {{ $systems := .Site.Data.systems.systems }}
+    {{ $now := now }}
     <!-- Overall Status -->
     <div class="overall-status">
         {{ $allOperational := true }}
@@ -34,14 +34,23 @@
         <div class="system-history">
             <div class="system-history-label">{{ .name }}</div>
             <div class="history-timeline">
-                {{ $days := 30 }}
-                {{ $now := now }}
-                {{ range $i := seq $days }}
-                    {{ $date := ($now.AddDate 0 0 (mul . -1)).Format "2006-01-02" }}
-                    {{ $dayStatus := index $status.history $date $systemId "status" | default "no_data" }}
-                    <div class="history-day status-{{ $dayStatus }}" title="{{ $date }}: {{ index $status.status_types $dayStatus "display" | default "No Data" }}">
+                {{ $currentDate := $now }}
+                {{ range $i := (seq 29 -1 0) }}
+                    {{ $currentDate = $now.AddDate 0 0 (int (sub 0 $i)) }}
+                    {{ $currentDateStr := $currentDate.Format "2006-01-02" }}
+                    {{ $dayStatus := "" }}
+                    {{ if index $status.history $currentDateStr }}
+                        {{ if index $status.history $currentDateStr $systemId }}
+                            {{ $dayStatus = index $status.history $currentDateStr $systemId "status" }}
+                        {{ else }}
+                            {{ $dayStatus = "no_data" }}
+                        {{ end }}
+                    {{ else }}
+                        {{ $dayStatus = "no_data" }}
+                    {{ end }}
+                    <div class="history-day status-{{ $dayStatus }}" title="{{ $currentDateStr }}: {{ index $status.status_types $dayStatus "display" | default "No Data" }}">
                         <span class="history-tooltip">
-                            {{ $date }}: {{ index $status.status_types $dayStatus "display" | default "No Data" }}
+                            {{ $currentDateStr }}: {{ index $status.status_types $dayStatus "display" | default "No Data" }}
                         </span>
                     </div>
                 {{ end }}
