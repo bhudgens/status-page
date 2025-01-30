@@ -294,6 +294,83 @@ footer {
     color: #333;
 }
 
+/* Weekly Status Table */
+.weekly-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+}
+
+.weekly-table th {
+    padding: 0.5rem;
+    font-weight: 500;
+    color: #666;
+    font-size: 0.8rem;
+    border: 1px solid #eee;
+    background: #fff;
+}
+
+.weekly-table td {
+    height: 30px;
+    width: 30px;
+    padding: 0;
+    border: 1px solid #eee;
+    position: relative;
+    cursor: pointer;
+}
+
+.weekly-table td.status-operational {
+    background-color: #2ecc71;
+}
+
+.weekly-table td.status-degraded {
+    background-color: #f1c40f;
+}
+
+.weekly-table td.status-partial_outage {
+    background-color: #e67e22;
+}
+
+.weekly-table td.status-major_outage {
+    background-color: #e74c3c;
+}
+
+.weekly-table td.status-no_data {
+    background-color: #ecf0f1;
+}
+
+.weekly-table td:hover .weekly-tooltip {
+    display: block;
+}
+
+.weekly-tooltip {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 0.4rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    z-index: 10;
+    margin-bottom: 5px;
+}
+
+.weekly-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 4px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+}
+
 /* Active Incidents */
 .active-incidents {
     margin-top: 1rem;

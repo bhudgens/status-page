@@ -89,6 +89,56 @@
                 </div>
             </div>
 
+            <!-- 7-Day Status History -->
+            <div class="system-metrics">
+                {{ $operationalDaysWeek := 0 }}
+                {{ range $i := (seq 6 -1 0) }}
+                    {{ $currentDate := $now.AddDate 0 0 (int (sub 0 $i)) }}
+                    {{ $currentDateStr := $currentDate.Format "2006-01-02" }}
+                    {{ if index $status.history $currentDateStr }}
+                        {{ if eq (index (index $status.history $currentDateStr $systemId) "status") "operational" }}
+                            {{ $operationalDaysWeek = add $operationalDaysWeek 1 }}
+                        {{ end }}
+                    {{ end }}
+                {{ end }}
+                <div class="uptime">
+                    <span class="metric-label">Last 7 Days</span>
+                    <span class="metric-value">{{ $operationalDaysWeek }}/7 days operational</span>
+                </div>
+                <table class="weekly-table">
+                    <thead>
+                        <tr>
+                            {{ range $i := (seq 6 -1 0) }}
+                                {{ $currentDate := $now.AddDate 0 0 (int (sub 0 $i)) }}
+                                <th>{{ $currentDate.Format "Jan 2" }}</th>
+                            {{ end }}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            {{ range $i := (seq 6 -1 0) }}
+                                {{ $currentDate := $now.AddDate 0 0 (int (sub 0 $i)) }}
+                                {{ $currentDateStr := $currentDate.Format "2006-01-02" }}
+                                {{ $dayStatus := "" }}
+                                {{ if index $status.history $currentDateStr }}
+                                    {{ if index $status.history $currentDateStr $systemId }}
+                                        {{ $dayStatus = index $status.history $currentDateStr $systemId "status" }}
+                                    {{ else }}
+                                        {{ $dayStatus = "no_data" }}
+                                    {{ end }}
+                                {{ else }}
+                                    {{ $dayStatus = "no_data" }}
+                                {{ end }}
+                                <td class="status-{{ $dayStatus }}" title="{{ $currentDate.Format "Jan 2" }}: {{ index $status.status_types $dayStatus "display" | default "No Data" }}">
+                                    <span class="weekly-tooltip">
+                                        {{ index $status.status_types $dayStatus "display" | default "No Data" }}
+                                    </span>
+                                </td>
+                            {{ end }}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
             <!-- Last incident info -->
             {{ $lastIncident := "" }}
