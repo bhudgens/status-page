@@ -195,7 +195,7 @@ Total estimated timeline: 7 weeks
 - [x] ✅ DONE: Create issue templates
 - [x] ✅ DONE: Design and create JSON config structure
 - [x] ✅ DONE: Implement config validation
-- [ ] TODO: Set up repository security controls
+- [ ] ⏳ DOING: Set up repository security controls
 
 ### Phase 2: Core Status Page Development
 - [ ] TODO: Set up Hugo static site generator

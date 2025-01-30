@@ -1,0 +1,19 @@
+# Global code owners
+* @admin
+
+# Configuration files
+/config/ @admin
+/config/systems.json @admin @maintainers
+
+# GitHub Actions workflows
+/.github/workflows/ @admin @devops
+
+# Frontend code
+/src/ @frontend-team
+
+# Documentation
+/docs/ @docs-team @admin
+*.md @docs-team @admin
+
+# Scripts
+/scripts/ @devops
