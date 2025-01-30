@@ -65,10 +65,61 @@
         {{ $systemStatus := index $status.current_status .id }}
         <div class="system-card status-{{ $systemStatus.status }}">
             <div class="system-header">
-                <h3>{{ .name }}</h3>
+                <div class="system-title">
+                    <h3>{{ .name }}</h3>
+                    <span class="category-badge">{{ .category }}</span>
+                </div>
                 <span class="status-badge">{{ index $status.status_types $systemStatus.status "display" }}</span>
             </div>
             <p class="system-description">{{ .description }}</p>
+            
+            <!-- Calculate and display uptime -->
+            {{ $operationalDays := 0 }}
+            {{ range $date, $dayData := $status.history }}
+                {{ if eq (index $dayData $.id "status") "operational" }}
+                    {{ $operationalDays = add $operationalDays 1 }}
+                {{ end }}
+            {{ end }}
+            {{ $uptime := mul (div $operationalDays 30.0) 100 }}
+            <div class="system-metrics">
+                <div class="uptime">
+                    <span class="metric-label">30-Day Uptime</span>
+                    <span class="metric-value">{{ printf "%.2f" $uptime }}%</span>
+                </div>
+            </div>
+
+            <!-- Mini 7-day timeline -->
+            <div class="mini-timeline">
+                {{ range $i := (seq 6 -1 0) }}
+                    {{ $date := $now.AddDate 0 0 (int (sub 0 $i)) }}
+                    {{ $dateStr := $date.Format "2006-01-02" }}
+                    {{ $dayStatus := "" }}
+                    {{ if index $status.history $dateStr }}
+                        {{ $dayStatus = index $status.history $dateStr $.id "status" }}
+                    {{ else }}
+                        {{ $dayStatus = "no_data" }}
+                    {{ end }}
+                    <div class="mini-day status-{{ $dayStatus }}" title="{{ $dateStr }}: {{ index $status.status_types $dayStatus "display" | default "No Data" }}"></div>
+                {{ end }}
+            </div>
+
+            <!-- Last incident info -->
+            {{ $lastIncident := "" }}
+            {{ range $status.incidents.resolved }}
+                {{ if in .systems $.id }}
+                    {{ $lastIncident = . }}
+                    {{ break }}
+                {{ end }}
+            {{ end }}
+            {{ if $lastIncident }}
+            <div class="last-incident">
+                <span class="last-incident-label">Last Incident:</span>
+                <span class="last-incident-date">{{ $lastIncident.resolved_at | time.Format "Jan 2, 2006" }}</span>
+                <span class="last-incident-title">{{ $lastIncident.title }}</span>
+            </div>
+            {{ end }}
+
+            <!-- Active incidents -->
             {{ if $systemStatus.active_incidents }}
             <div class="active-incidents">
                 {{ range $systemStatus.active_incidents }}
