@@ -1,0 +1,30 @@
+baseURL = '/'
+languageCode = 'en-us'
+title = 'System Status'
+theme = 'ananke'
+
+# Output to /docs for GitHub Pages
+publishDir = 'docs'
+
+# Site parameters
+[params]
+  description = "Real-time system status and incident updates"
+  body_classes = "avenir bg-near-white"
+  featured_image = ''
+  mainSections = ['incidents']
+  custom_css = ['css/custom.css']
+
+# Menu configuration
+[menu]
+  [[menu.main]]
+    name = "Current Status"
+    url = "/"
+    weight = 1
+  [[menu.main]]
+    name = "Incident History"
+    url = "/incidents/"
+    weight = 2
+  [[menu.main]]
+    name = "Systems"
+    url = "/systems/"
+    weight = 3
