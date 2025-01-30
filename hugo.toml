@@ -2,8 +2,8 @@ baseURL = "/"
 languageCode = "en-us"
 title = "System Status"
 disableKinds = ["taxonomy", "term"]
-theme = "ananke"
-build = { publishDir = "docs" }
+publishDir = "docs"
+
 
 [functions]
   [functions.toInt]
@@ -15,10 +15,12 @@ build = { publishDir = "docs" }
 # Site parameters
 [params]
   description = "Real-time system status and incident updates"
-  body_classes = "avenir bg-near-white"
-  featured_image = ''
   mainSections = ['incidents']
-  custom_css = ['css/custom.css']
+
+[module]
+  [[module.mounts]]
+    source = "static"
+    target = "static"
 
 # Menu configuration
 [menu]
