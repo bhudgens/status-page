@@ -1,0 +1,79 @@
+{{ $status := .Site.Data.status }}
+{{ $systems := .Site.Data.systems.systems }}
+
+<div class="status-dashboard">
+    <!-- Overall Status -->
+    <div class="overall-status">
+        {{ $allOperational := true }}
+        {{ range $systemId, $systemStatus := $status.current_status }}
+            {{ if ne $systemStatus.status "operational" }}
+                {{ $allOperational = false }}
+            {{ end }}
+        {{ end }}
+        
+        <div class="status-banner {{ if $allOperational }}status-operational{{ else }}status-incident{{ end }}">
+            <div class="status-icon"></div>
+            <h1>
+                {{ if $allOperational }}
+                All Systems Operational
+                {{ else }}
+                System Incidents Detected
+                {{ end }}
+            </h1>
+            <p class="last-updated">
+                Last updated: {{ $status.last_updated | time.Format "January 2, 2006 15:04 MST" }}
+            </p>
+        </div>
+    </div>
+
+    <!-- System Status Cards -->
+    <div class="systems-grid">
+        {{ range $systems }}
+        {{ $systemStatus := index $status.current_status .id }}
+        <div class="system-card status-{{ $systemStatus.status }}">
+            <div class="system-header">
+                <h3>{{ .name }}</h3>
+                <span class="status-badge">{{ index $status.status_types $systemStatus.status "display" }}</span>
+            </div>
+            <p class="system-description">{{ .description }}</p>
+            {{ if $systemStatus.active_incidents }}
+            <div class="active-incidents">
+                {{ range $systemStatus.active_incidents }}
+                {{ $incident := index (where $status.incidents.active "id" .) 0 }}
+                <div class="incident-alert">
+                    <span class="incident-severity {{ $incident.severity }}"></span>
+                    <a href="/incidents/{{ $incident.id }}">{{ $incident.title }}</a>
+                </div>
+                {{ end }}
+            </div>
+            {{ end }}
+        </div>
+        {{ end }}
+    </div>
+
+    <!-- Active Incidents -->
+    {{ if $status.incidents.active }}
+    <div class="active-incidents-section">
+        <h2>Active Incidents</h2>
+        <div class="incidents-list">
+            {{ range $status.incidents.active }}
+            <div class="incident-card severity-{{ .severity }}">
+                <div class="incident-header">
+                    <h3><a href="/incidents/{{ .id }}">{{ .title }}</a></h3>
+                    <span class="incident-time">{{ .created_at | time.Format "15:04 MST" }}</span>
+                </div>
+                <div class="incident-meta">
+                    <span class="incident-status">{{ .status }}</span>
+                    <span class="incident-severity">{{ .severity }}</span>
+                </div>
+                <div class="affected-systems">
+                    {{ range .systems }}
+                    <span class="system-tag">{{ . }}</span>
+                    {{ end }}
+                </div>
+            </div>
+            {{ end }}
+        </div>
+    </div>
+    {{ end }}
+</div>
