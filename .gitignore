@@ -5,7 +5,7 @@ vendor/
 # Build output
 dist/
 build/
-public/dist/
+public/
 
 # Environment files
 .env

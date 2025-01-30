@@ -15,19 +15,29 @@ A modern, automated status page system powered by GitHub. This project leverages
 
 ```
 .
-├── .github/          # GitHub specific files (workflows, templates)
+├── .github/         # GitHub specific files (workflows, templates)
 ├── config/          # Configuration files
-├── public/          # Static assets
-└── src/             # Source code
+├── content/         # Hugo content files
+├── layouts/         # Hugo layout templates
+├── static/          # Static assets
+└── docs/           # Generated site (for GitHub Pages)
 ```
 
 ## Setup
 
-[Documentation coming soon]
+1. Install dependencies:
+```bash
+npm install
+```
 
 ## Development
 
-[Documentation coming soon]
+To build the site:
+```bash
+npm run build
+```
+
+This will generate the site in the `docs` directory, which is used for GitHub Pages. Note: While Hugo can be run directly with `hugo`, it's recommended to use `npm run build` to ensure the output goes to the correct directory.
 
 ## Contributing
 
