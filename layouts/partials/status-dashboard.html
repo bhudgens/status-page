@@ -89,20 +89,6 @@
                 </div>
             </div>
 
-            <!-- Mini 7-day timeline -->
-            <div class="mini-timeline">
-                {{ range $i := (seq 6 -1 0) }}
-                    {{ $date := $now.AddDate 0 0 (int (sub 0 $i)) }}
-                    {{ $dateStr := $date.Format "2006-01-02" }}
-                    {{ $dayStatus := "" }}
-                    {{ if index $status.history $dateStr }}
-                        {{ $dayStatus = index (index $status.history $dateStr $systemId) "status" }}
-                    {{ else }}
-                        {{ $dayStatus = "no_data" }}
-                    {{ end }}
-                    <div class="mini-day status-{{ $dayStatus }}" title="{{ $dateStr }}: {{ index $status.status_types $dayStatus "display" | default "No Data" }}"></div>
-                {{ end }}
-            </div>
 
             <!-- Last incident info -->
             {{ $lastIncident := "" }}

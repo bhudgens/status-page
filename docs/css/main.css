@@ -227,8 +227,14 @@ footer {
 .system-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 1rem;
+}
+
+.system-title {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .system-header h3 {
@@ -236,10 +242,87 @@ footer {
     font-size: 1.2rem;
 }
 
+.category-badge {
+    font-size: 0.75rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.75rem;
+    background: #f0f0f0;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
 .status-badge {
     padding: 0.25rem 0.75rem;
     border-radius: 1rem;
     font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* System Metrics */
+.system-metrics {
+    margin: 1rem 0;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+}
+
+.uptime {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.metric-label {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.metric-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2ecc71;
+}
+
+/* Mini Timeline */
+.mini-timeline {
+    display: flex;
+    gap: 2px;
+    margin: 1rem 0;
+    padding: 0.5rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+}
+
+.mini-day {
+    flex: 1;
+    height: 8px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+/* Last Incident */
+.last-incident {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.last-incident-label {
+    display: block;
+    color: #666;
+    margin-bottom: 0.25rem;
+}
+
+.last-incident-date {
+    color: #666;
+    margin-right: 0.5rem;
+}
+
+.last-incident-title {
+    color: #333;
     font-weight: 500;
 }
 
