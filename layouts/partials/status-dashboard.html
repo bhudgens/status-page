@@ -74,9 +74,10 @@
             <p class="system-description">{{ .description }}</p>
             
             <!-- Calculate and display uptime -->
+            {{ $systemId := .id }}
             {{ $operationalDays := 0 }}
             {{ range $date, $dayData := $status.history }}
-                {{ if eq (index $dayData $.id "status") "operational" }}
+                {{ if eq (index (index $dayData $systemId) "status") "operational" }}
                     {{ $operationalDays = add $operationalDays 1 }}
                 {{ end }}
             {{ end }}
@@ -95,7 +96,7 @@
                     {{ $dateStr := $date.Format "2006-01-02" }}
                     {{ $dayStatus := "" }}
                     {{ if index $status.history $dateStr }}
-                        {{ $dayStatus = index $status.history $dateStr $.id "status" }}
+                        {{ $dayStatus = index (index $status.history $dateStr $systemId) "status" }}
                     {{ else }}
                         {{ $dayStatus = "no_data" }}
                     {{ end }}
@@ -106,7 +107,7 @@
             <!-- Last incident info -->
             {{ $lastIncident := "" }}
             {{ range $status.incidents.resolved }}
-                {{ if in .systems $.id }}
+                {{ if in .systems $systemId }}
                     {{ $lastIncident = . }}
                     {{ break }}
                 {{ end }}
