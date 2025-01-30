@@ -1,7 +1,9 @@
-baseURL = '/'
-languageCode = 'en-us'
-title = 'System Status'
-disableKinds = ['taxonomy', 'term']
+baseURL = "/"
+languageCode = "en-us"
+title = "System Status"
+disableKinds = ["taxonomy", "term"]
+theme = "ananke"
+build = { publishDir = "docs" }
 
 [functions]
   [functions.toInt]
@@ -9,9 +11,6 @@ disableKinds = ['taxonomy', 'term']
     code = """
       return int(value)
     """
-
-# Output to /docs for GitHub Pages
-publishDir = 'docs'
 
 # Site parameters
 [params]

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "validate": "node scripts/validate-config.js",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "build": "hugo --destination docs --cleanDestinationDir"
   },
   "keywords": [],
   "author": "",
