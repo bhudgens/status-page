@@ -1,0 +1,25 @@
+{
+  "systems": [
+    {
+      "id": "api",
+      "name": "API Service",
+      "description": "Main API endpoints and services",
+      "category": "core",
+      "labels": ["api", "core"]
+    },
+    {
+      "id": "web",
+      "name": "Web Application",
+      "description": "Customer-facing web interface",
+      "category": "frontend",
+      "labels": ["web", "frontend"]
+    },
+    {
+      "id": "db",
+      "name": "Database",
+      "description": "Primary data storage system",
+      "category": "core",
+      "labels": ["database", "core"]
+    }
+  ]
+}
