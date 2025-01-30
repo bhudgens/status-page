@@ -105,7 +105,7 @@
                     <span class="metric-label">Last 7 Days</span>
                     <span class="metric-value">{{ $operationalDaysWeek }}/7 days operational</span>
                 </div>
-                <table class="weekly-table table">
+                <table class="weekly-table table table-sm table-hover">
                     <thead>
                         <tr>
                             <th>Date</th>
@@ -128,8 +128,10 @@
                             {{ end }}
                             <tr>
                                 <td>{{ $currentDate.Format "Jan 2" }}</td>
-                                <td class="status-cell status-{{ $dayStatus }}">
-                                    {{ index $status.status_types $dayStatus "display" | default "No Data" }}
+                                <td class="status-cell">
+                                    <span class="badge {{ if eq $dayStatus "operational" }}bg-success{{ else if eq $dayStatus "degraded" }}bg-warning{{ else if eq $dayStatus "partial_outage" }}bg-danger{{ else if eq $dayStatus "major_outage" }}bg-danger{{ else }}bg-secondary{{ end }}">
+                                        {{ index $status.status_types $dayStatus "display" | default "No Data" }}
+                                    </span>
                                 </td>
                             </tr>
                         {{ end }}
