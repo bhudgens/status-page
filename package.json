@@ -1,0 +1,17 @@
+{
+  "name": "status-page",
+  "version": "1.0.0",
+  "description": "A modern, automated status page system powered by GitHub. This project leverages GitHub Issues, Actions, and Pages to provide a robust and easy-to-maintain status page solution.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "validate": "node scripts/validate-config.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  }
+}
