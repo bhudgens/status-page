@@ -26,6 +26,30 @@
         </div>
     </div>
 
+    <!-- Status History -->
+    <div class="status-history">
+        <h2>30-Day Status History</h2>
+        {{ range $systems }}
+        {{ $systemId := .id }}
+        <div class="system-history">
+            <div class="system-history-label">{{ .name }}</div>
+            <div class="history-timeline">
+                {{ $days := 30 }}
+                {{ $now := now }}
+                {{ range $i := seq $days }}
+                    {{ $date := ($now.AddDate 0 0 (mul . -1)).Format "2006-01-02" }}
+                    {{ $dayStatus := index $status.history $date $systemId "status" | default "no_data" }}
+                    <div class="history-day status-{{ $dayStatus }}" title="{{ $date }}: {{ index $status.status_types $dayStatus "display" | default "No Data" }}">
+                        <span class="history-tooltip">
+                            {{ $date }}: {{ index $status.status_types $dayStatus "display" | default "No Data" }}
+                        </span>
+                    </div>
+                {{ end }}
+            </div>
+        </div>
+        {{ end }}
+    </div>
+
     <!-- System Status Cards -->
     <div class="systems-grid">
         {{ range $systems }}

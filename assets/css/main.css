@@ -36,6 +36,100 @@
     opacity: 0.9;
 }
 
+/* Status History */
+.status-history {
+    background: white;
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.status-history h2 {
+    margin: 0 0 1.5rem 0;
+    font-size: 1.5rem;
+}
+
+.system-history {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.system-history:last-child {
+    margin-bottom: 0;
+}
+
+.system-history-label {
+    width: 150px;
+    font-weight: 500;
+    padding-right: 1rem;
+}
+
+.history-timeline {
+    flex: 1;
+    display: flex;
+    gap: 2px;
+}
+
+.history-day {
+    flex: 1;
+    height: 24px;
+    position: relative;
+    cursor: pointer;
+}
+
+.history-day:hover .history-tooltip {
+    display: block;
+}
+
+.history-tooltip {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    z-index: 1;
+    margin-bottom: 5px;
+}
+
+.history-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+}
+
+.history-day.status-operational {
+    background-color: #2ecc71;
+}
+
+.history-day.status-degraded {
+    background-color: #f1c40f;
+}
+
+.history-day.status-partial_outage {
+    background-color: #e67e22;
+}
+
+.history-day.status-major_outage {
+    background-color: #e74c3c;
+}
+
+.history-day.status-no_data {
+    background-color: #ecf0f1;
+}
+
 /* System Status Grid */
 .systems-grid {
     display: grid;
