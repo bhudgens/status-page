@@ -1,0 +1,59 @@
+{
+  "last_updated": "2025-01-30T09:19:15-06:00",
+  "current_status": {
+    "api": {
+      "status": "operational",
+      "active_incidents": []
+    },
+    "web": {
+      "status": "operational",
+      "active_incidents": []
+    },
+    "db": {
+      "status": "operational",
+      "active_incidents": []
+    }
+  },
+  "history": {
+    "2025-01-30": {
+      "api": {
+        "status": "operational",
+        "incidents": []
+      },
+      "web": {
+        "status": "operational",
+        "incidents": []
+      },
+      "db": {
+        "status": "operational",
+        "incidents": []
+      }
+    }
+  },
+  "incidents": {
+    "active": [],
+    "resolved": []
+  },
+  "status_types": {
+    "operational": {
+      "severity": 0,
+      "display": "Operational",
+      "color": "#2ecc71"
+    },
+    "degraded": {
+      "severity": 1,
+      "display": "Degraded Performance",
+      "color": "#f1c40f"
+    },
+    "partial_outage": {
+      "severity": 2,
+      "display": "Partial Outage",
+      "color": "#e67e22"
+    },
+    "major_outage": {
+      "severity": 3,
+      "display": "Major Outage",
+      "color": "#e74c3c"
+    }
+  }
+}
