@@ -285,8 +285,9 @@ footer {
 }
 
 .metric-label {
-    font-size: 0.9rem;
-    color: #666;
+    font-size: 1rem;
+    color: #333;
+    font-weight: 500;
 }
 
 .metric-value {
@@ -296,7 +297,7 @@ footer {
 
 /* Weekly Status Table */
 .weekly-table {
-    margin-top: 0.75rem;
+    margin-top: 1.5rem;
     background-color: #fff;
     border-radius: var(--bs-border-radius);
     overflow: hidden;

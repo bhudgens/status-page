@@ -10,15 +10,15 @@
       "active_incidents": []
     },
     "db": {
-      "status": "operational",
-      "active_incidents": []
+      "status": "major_outage",
+      "active_incidents": ["inc-004"]
     }
   },
   "history": {
     "2025-01-30": {
       "api": { "status": "operational", "incidents": [] },
       "web": { "status": "operational", "incidents": [] },
-      "db": { "status": "operational", "incidents": [] }
+      "db": { "status": "major_outage", "incidents": ["inc-004"] }
     },
     "2025-01-29": {
       "api": { "status": "operational", "incidents": [] },
@@ -167,7 +167,17 @@
     }
   },
   "incidents": {
-    "active": [],
+    "active": [
+      {
+        "id": "inc-004",
+        "title": "Database Connectivity Issues",
+        "status": "investigating",
+        "severity": "major_outage",
+        "systems": ["db"],
+        "created_at": "2025-01-30T13:01:00-06:00",
+        "updated_at": "2025-01-30T13:01:00-06:00"
+      }
+    ],
     "resolved": [
       {
         "id": "inc-001",
