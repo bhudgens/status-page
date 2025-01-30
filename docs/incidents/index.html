@@ -1,2 +1,72 @@
-<!doctype html><html lang=en-us><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1"><title>Incident History | System Status</title>
-<meta name=viewport content="width=device-width,minimum-scale=1"><meta name=description content="View past and ongoing system incidents"><meta name=generator content="Hugo 0.135.0"><meta name=robots content="index, follow"><link rel=stylesheet href=/ananke/css/main.css><link rel=stylesheet href=/css/custom.css><link href=/incidents/index.xml rel=alternate type=application/rss+xml title="System Status"><link href=/incidents/index.xml rel=feed type=application/rss+xml title="System Status"><link rel=canonical href=/incidents/><meta property="og:url" content="/incidents/"><meta property="og:site_name" content="System Status"><meta property="og:title" content="Incident History"><meta property="og:description" content="View past and ongoing system incidents"><meta property="og:locale" content="en_us"><meta property="og:type" content="website"><meta itemprop=name content="Incident History"><meta itemprop=description content="View past and ongoing system incidents"><meta itemprop=wordCount content="18"><meta name=twitter:card content="summary"><meta name=twitter:title content="Incident History"><meta name=twitter:description content="View past and ongoing system incidents"></head><body class="ma0 avenir bg-near-white production"><header><div class="pb3-m pb6-l bg-black"><nav class="pv3 ph3 ph4-ns" role=navigation><div class="flex-l justify-between items-center center"><a href=/ class="f3 fw2 hover-white no-underline white-90 dib">System Status</a><div class="flex-l items-center"><ul class="pl0 mr3"><li class="list f5 f4-ns fw4 dib pr3"><a class="hover-white no-underline white-90" href=/ title="Current Status page">Current Status</a></li><li class="list f5 f4-ns fw4 dib pr3"><a class="hover-white no-underline white-90" href=/incidents/ title="Incident History page">Incident History</a></li><li class="list f5 f4-ns fw4 dib pr3"><a class="hover-white no-underline white-90" href=/systems/ title="Systems page">Systems</a></li></ul><div class=ananke-socials></div></div></div></nav><div class="tc-l pv3 ph3 ph4-ns"><h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">Incident History</h1><h2 class="fw1 f5 f3-l white-80 measure-wide-l center lh-copy mt3 mb4">View past and ongoing system incidents</h2></div></div></header><main class=pb7 role=main><article class="pa3 pa4-ns nested-copy-line-height"><section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy mid-gray"><p>This page lists all system incidents, both ongoing and resolved. Check here for detailed incident reports and updates.</p></section><section class="flex-ns flex-wrap justify-around mt5"></section></article></main><footer class="bg-black bottom-0 w-100 pa3" role=contentinfo><div class="flex justify-between"><a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href=/>&copy; System Status 2025</a><div><div class=ananke-socials></div></div></div></footer></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incident History - Status Page</title>
+    
+    
+    <link rel="stylesheet" href="/css/main.css">
+    
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <a href="/" class="brand">Status Page</a>
+                <div class="nav-links">
+                    <a href="/">Current Status</a>
+                    <a href="/incidents">Incidents</a>
+                    <a href="/systems">Systems</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        
+<div class="incidents-page">
+    <h1>Incident History</h1>
+    
+    <div class="incident-filters">
+        <div class="filter-group">
+            <label>Status:</label>
+            <select id="status-filter">
+                <option value="all">All</option>
+                <option value="investigating">Investigating</option>
+                <option value="identified">Identified</option>
+                <option value="monitoring">Monitoring</option>
+                <option value="resolved">Resolved</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="incident-list">
+        
+    </div>
+
+    <script>
+        document.getElementById('status-filter').addEventListener('change', function() {
+            const status = this.value;
+            const incidents = document.querySelectorAll('.incident-item');
+            
+            incidents.forEach(incident => {
+                if (status === 'all' || incident.dataset.status === status) {
+                    incident.style.display = 'block';
+                } else {
+                    incident.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Status page powered by GitHub</p>
+        </div>
+    </footer>
+</body>
+</html>

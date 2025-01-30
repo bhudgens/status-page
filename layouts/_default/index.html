@@ -1,3 +1,12 @@
 {{ define "main" }}
-{{ partial "status-dashboard" . }}
+  {{ $status := .Site.Data.status }}
+  {{ $systems := .Site.Data.systems.systems }}
+  {{ if and $status $systems }}
+    {{ partial "status-dashboard" . }}
+  {{ else }}
+    <div class="error-message">
+      <h2>Configuration Error</h2>
+      <p>Status data or system configuration is missing. Please check your data files.</p>
+    </div>
+  {{ end }}
 {{ end }}

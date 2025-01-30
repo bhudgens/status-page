@@ -3,11 +3,12 @@
     <h1>Systems Status</h1>
     
     <div class="systems-grid">
-        {{ range .Site.Data.systems }}
+        {{ range .Site.Data.systems.systems }}
+        {{ $systemStatus := index $.Site.Data.status.current_status .id }}
         <div class="system-card">
             <div class="system-header">
                 <h2>
-                    <span class="status-indicator status-{{ .status }}"></span>
+                    <span class="status-indicator status-{{ $systemStatus.status }}"></span>
                     {{ .name }}
                 </h2>
                 {{ if .category }}

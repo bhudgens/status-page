@@ -1,7 +1,14 @@
 baseURL = '/'
 languageCode = 'en-us'
 title = 'System Status'
-theme = 'ananke'
+disableKinds = ['taxonomy', 'term']
+
+[functions]
+  [functions.toInt]
+    params = ["value"]
+    code = """
+      return int(value)
+    """
 
 # Output to /docs for GitHub Pages
 publishDir = 'docs'
