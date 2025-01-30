@@ -137,6 +137,29 @@
 - Deploy key management
 - Access control policies
 
+## Assumptions Requiring Validation
+
+### Technical Assumptions
+- [ ] TODO: Validate that GitHub Actions can reliably detect and process issue updates within acceptable time limits (< 2 minutes)
+- [ ] TODO: Confirm Hugo's ability to handle large JSON data files for status history without performance degradation
+- [ ] TODO: Verify GitHub Pages build times remain under 1 minute with full status history
+- [ ] TODO: Validate that GitHub's API rate limits won't impact automatic updates for high-traffic status pages
+- [ ] TODO: Confirm feasibility of using GitHub issues as the primary data store for long-term status history
+
+### Infrastructure Assumptions
+- [ ] TODO: Verify that GitHub Pages can handle expected traffic spikes during major incidents
+- [ ] TODO: Confirm that JSON status file size won't exceed GitHub's file size limits over time
+- [ ] TODO: Validate that GitHub's webhook system is reliable enough for real-time status updates
+- [ ] TODO: Verify branch protection rules won't interfere with automated updates
+- [ ] TODO: Test if GitHub's caching mechanisms could cause stale status displays
+
+### User Experience Assumptions
+- [ ] TODO: Validate that non-technical users can effectively use GitHub Issues for incident management
+- [ ] TODO: Confirm that the issue template format is sufficient for all types of incidents
+- [ ] TODO: Verify that the 30+ day history visualization will be clear and useful on mobile devices
+- [ ] TODO: Test if status updates can be made quickly enough during critical incidents
+- [ ] TODO: Validate that the system status dashboard is intuitive for end-users
+
 ## Success Criteria
 1. Functionality
    - Automatic status updates from issues
