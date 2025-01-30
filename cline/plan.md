@@ -17,6 +17,8 @@
 1. Static Site Generator Implementation
    - Evaluate and select appropriate static site generator (Hugo preferred)
    - Set up build pipeline
+     - IMPORTANT: Always use `npm run build` instead of direct `hugo` command to ensure output goes to docs directory for GitHub Pages
+     - Direct `hugo` command outputs to public directory which should be avoided
    - Create base templates and layouts
    - Implement responsive design system
 
