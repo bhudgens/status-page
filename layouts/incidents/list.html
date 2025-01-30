@@ -1,0 +1,61 @@
+{{ define "main" }}
+<div class="incidents-page">
+    <h1>Incident History</h1>
+    
+    <div class="incident-filters">
+        <div class="filter-group">
+            <label>Status:</label>
+            <select id="status-filter">
+                <option value="all">All</option>
+                <option value="investigating">Investigating</option>
+                <option value="identified">Identified</option>
+                <option value="monitoring">Monitoring</option>
+                <option value="resolved">Resolved</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="incident-list">
+        {{ range .Pages.ByDate.Reverse }}
+        <div class="incident-item" data-status="{{ .Params.status }}">
+            <div class="incident-title">
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </div>
+            <div class="incident-meta">
+                <span class="incident-date">{{ .Date.Format "January 2, 2006 15:04 MST" }}</span>
+                <span class="incident-status status-{{ .Params.status }}">{{ .Params.status }}</span>
+            </div>
+            <div class="incident-systems">
+                Affected Systems:
+                {{ range .Params.systems }}
+                <span class="system-tag">{{ . }}</span>
+                {{ end }}
+            </div>
+            {{ if .Params.severity }}
+            <div class="incident-severity severity-{{ .Params.severity }}">
+                {{ .Params.severity }}
+            </div>
+            {{ end }}
+            <div class="incident-summary">
+                {{ .Summary }}
+            </div>
+        </div>
+        {{ end }}
+    </div>
+
+    <script>
+        document.getElementById('status-filter').addEventListener('change', function() {
+            const status = this.value;
+            const incidents = document.querySelectorAll('.incident-item');
+            
+            incidents.forEach(incident => {
+                if (status === 'all' || incident.dataset.status === status) {
+                    incident.style.display = 'block';
+                } else {
+                    incident.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</div>
+{{ end }}

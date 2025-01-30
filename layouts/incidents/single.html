@@ -1,0 +1,130 @@
+{{ define "main" }}
+<div class="incident-detail">
+    <div class="incident-header">
+        <h1>{{ .Title }}</h1>
+        <div class="incident-meta">
+            <div class="incident-status status-{{ .Params.status }}">
+                Current Status: {{ .Params.status }}
+            </div>
+            {{ if .Params.severity }}
+            <div class="incident-severity severity-{{ .Params.severity }}">
+                Severity: {{ .Params.severity }}
+            </div>
+            {{ end }}
+            <div class="incident-date">
+                Reported: {{ .Date.Format "January 2, 2006 15:04 MST" }}
+            </div>
+            {{ if .Params.resolved_at }}
+            <div class="incident-resolved">
+                Resolved: {{ dateFormat "January 2, 2006 15:04 MST" .Params.resolved_at }}
+            </div>
+            {{ end }}
+        </div>
+
+        <div class="affected-systems">
+            <h3>Affected Systems:</h3>
+            <ul>
+                {{ range .Params.systems }}
+                <li>{{ . }}</li>
+                {{ end }}
+            </ul>
+        </div>
+    </div>
+
+    <div class="incident-content">
+        {{ .Content }}
+    </div>
+
+    {{ if .Params.updates }}
+    <div class="incident-timeline">
+        <h2>Timeline</h2>
+        {{ range .Params.updates }}
+        <div class="timeline-entry">
+            <div class="timeline-meta">
+                <span class="timeline-date">{{ dateFormat "January 2, 2006 15:04 MST" .timestamp }}</span>
+                <span class="timeline-status status-{{ .status }}">{{ .status }}</span>
+            </div>
+            <div class="timeline-content">
+                {{ .message | markdownify }}
+            </div>
+        </div>
+        {{ end }}
+    </div>
+    {{ end }}
+
+    <div class="incident-footer">
+        <a href="/incidents" class="back-link">← Back to Incidents</a>
+    </div>
+</div>
+
+<style>
+/* Additional styles specific to incident detail page */
+.incident-detail {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.incident-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.incident-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.timeline-entry {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+    border-left: 3px solid #eee;
+    position: relative;
+}
+
+.timeline-entry::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 0;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid #666;
+}
+
+.timeline-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 2rem;
+    color: #666;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    color: #333;
+}
+
+/* Status colors */
+.status-investigating { color: #e67e22; }
+.status-identified { color: #3498db; }
+.status-monitoring { color: #f1c40f; }
+.status-resolved { color: #2ecc71; }
+
+/* Severity colors */
+.severity-critical { color: #e74c3c; }
+.severity-major { color: #e67e22; }
+.severity-minor { color: #f1c40f; }
+</style>
+{{ end }}

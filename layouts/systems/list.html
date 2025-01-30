@@ -1,0 +1,117 @@
+{{ define "main" }}
+<div class="systems-page">
+    <h1>Systems Status</h1>
+    
+    <div class="systems-grid">
+        {{ range .Site.Data.systems }}
+        <div class="system-card">
+            <div class="system-header">
+                <h2>
+                    <span class="status-indicator status-{{ .status }}"></span>
+                    {{ .name }}
+                </h2>
+                {{ if .category }}
+                <div class="system-category">{{ .category }}</div>
+                {{ end }}
+            </div>
+            
+            <div class="system-description">
+                {{ .description }}
+            </div>
+
+            {{ if .labels }}
+            <div class="system-labels">
+                {{ range .labels }}
+                <span class="label">{{ . }}</span>
+                {{ end }}
+            </div>
+            {{ end }}
+
+            <div class="system-meta">
+                {{ if .last_incident }}
+                <div class="last-incident">
+                    Last incident: 
+                    <a href="/incidents/{{ .last_incident.id }}">
+                        {{ .last_incident.title }}
+                    </a>
+                    ({{ dateFormat "Jan 2, 2006" .last_incident.date }})
+                </div>
+                {{ else }}
+                <div class="no-incidents">No recent incidents</div>
+                {{ end }}
+            </div>
+        </div>
+        {{ end }}
+    </div>
+</div>
+
+<style>
+.systems-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.system-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.system-category {
+    font-size: 0.9rem;
+    color: #666;
+    padding: 0.2rem 0.5rem;
+    background: #f5f5f5;
+    border-radius: 4px;
+}
+
+.system-description {
+    color: #444;
+    margin-bottom: 1rem;
+}
+
+.system-labels {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.label {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.5rem;
+    background: #e9ecef;
+    border-radius: 4px;
+    color: #495057;
+}
+
+.system-meta {
+    font-size: 0.9rem;
+    color: #666;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.last-incident a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.last-incident a:hover {
+    text-decoration: underline;
+}
+
+.no-incidents {
+    color: #2ecc71;
+}
+
+@media (max-width: 768px) {
+    .systems-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{{ end }}

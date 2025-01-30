@@ -1,0 +1,56 @@
+{{ define "main" }}
+<div class="status-overview">
+    <h1>System Status</h1>
+    <div class="current-status">
+        {{ $allOperational := true }}
+        {{ range .Site.Data.systems }}
+            {{ if ne .status "operational" }}
+                {{ $allOperational = false }}
+            {{ end }}
+        {{ end }}
+        
+        <div class="overall-status {{ if $allOperational }}status-operational{{ else }}status-degraded{{ end }}">
+            {{ if $allOperational }}
+            <span class="status-indicator status-operational"></span>
+            All Systems Operational
+            {{ else }}
+            <span class="status-indicator status-degraded"></span>
+            Some Systems Are Experiencing Issues
+            {{ end }}
+        </div>
+    </div>
+
+    <div class="systems-list">
+        <h2>Systems</h2>
+        {{ range .Site.Data.systems }}
+        <div class="system-card">
+            <h3>
+                <span class="status-indicator status-{{ .status }}"></span>
+                {{ .name }}
+            </h3>
+            <p>{{ .description }}</p>
+        </div>
+        {{ end }}
+    </div>
+
+    <div class="recent-incidents">
+        <h2>Recent Incidents</h2>
+        <div class="incident-list">
+            {{ range first 5 (where .Site.RegularPages "Section" "incidents") }}
+            <div class="incident-item">
+                <div class="incident-title">
+                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                </div>
+                <div class="incident-meta">
+                    {{ .Date.Format "January 2, 2006 15:04 MST" }}
+                    <span class="incident-status">{{ .Params.status }}</span>
+                </div>
+            </div>
+            {{ end }}
+        </div>
+        <div class="view-all">
+            <a href="/incidents">View all incidents →</a>
+        </div>
+    </div>
+</div>
+{{ end }}

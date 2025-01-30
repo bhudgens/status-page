@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ if .IsHome }}Status Page{{ else }}{{ .Title }} - Status Page{{ end }}</title>
+    {{ $style := resources.Get "css/main.css" }}
+    {{ if $style }}
+    <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+    {{ end }}
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <a href="/" class="brand">Status Page</a>
+                <div class="nav-links">
+                    <a href="/">Current Status</a>
+                    <a href="/incidents">Incidents</a>
+                    <a href="/systems">Systems</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            {{ block "main" . }}{{ end }}
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Status page powered by GitHub</p>
+        </div>
+    </footer>
+</body>
+</html>

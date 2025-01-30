@@ -1,0 +1,149 @@
+{{ define "main" }}
+<div class="system-detail">
+    <div class="system-header">
+        <h1>
+            <span class="status-indicator status-{{ .Params.status }}"></span>
+            {{ .Title }}
+        </h1>
+        
+        <div class="system-meta">
+            {{ if .Params.category }}
+            <div class="system-category">
+                Category: {{ .Params.category }}
+            </div>
+            {{ end }}
+            
+            {{ if .Params.labels }}
+            <div class="system-labels">
+                {{ range .Params.labels }}
+                <span class="label">{{ . }}</span>
+                {{ end }}
+            </div>
+            {{ end }}
+        </div>
+    </div>
+
+    <div class="system-content">
+        <div class="system-description">
+            {{ .Content }}
+        </div>
+
+        <div class="system-status">
+            <h2>Current Status</h2>
+            <div class="status-card status-{{ .Params.status }}">
+                <div class="status-header">
+                    <span class="status-indicator status-{{ .Params.status }}"></span>
+                    {{ .Params.status | title }}
+                </div>
+                {{ if .Params.status_since }}
+                <div class="status-since">
+                    Since: {{ dateFormat "January 2, 2006 15:04 MST" .Params.status_since }}
+                </div>
+                {{ end }}
+            </div>
+        </div>
+
+        <div class="system-incidents">
+            <h2>Recent Incidents</h2>
+            {{ $systemName := .Title }}
+            {{ $incidents := where .Site.RegularPages "Section" "incidents" }}
+            {{ $relatedIncidents := where $incidents "Params.systems" "intersect" (slice $systemName) }}
+            
+            {{ if $relatedIncidents }}
+            <div class="incident-list">
+                {{ range first 5 $relatedIncidents.ByDate.Reverse }}
+                <div class="incident-item">
+                    <div class="incident-title">
+                        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                    </div>
+                    <div class="incident-meta">
+                        <span class="incident-date">{{ .Date.Format "January 2, 2006" }}</span>
+                        <span class="incident-status status-{{ .Params.status }}">{{ .Params.status }}</span>
+                    </div>
+                    <div class="incident-summary">
+                        {{ .Summary }}
+                    </div>
+                </div>
+                {{ end }}
+            </div>
+            {{ else }}
+            <p class="no-incidents">No incidents reported for this system.</p>
+            {{ end }}
+        </div>
+    </div>
+</div>
+
+<style>
+.system-detail {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.system-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.system-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.status-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin: 1rem 0;
+}
+
+.status-header {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.status-since {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.system-incidents {
+    margin-top: 2rem;
+}
+
+.incident-item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+}
+
+.incident-summary {
+    margin-top: 0.5rem;
+    color: #666;
+}
+
+.no-incidents {
+    color: #666;
+    font-style: italic;
+}
+
+/* Status-specific styles */
+.status-operational {
+    border-left: 4px solid #2ecc71;
+}
+
+.status-degraded {
+    border-left: 4px solid #f1c40f;
+}
+
+.status-outage {
+    border-left: 4px solid #e74c3c;
+}
+</style>
+{{ end }}
