@@ -198,7 +198,7 @@ Total estimated timeline: 7 weeks
 - [x] ✅ DONE: Set up repository security controls
 
 ### Phase 2: Core Status Page Development
-- [ ] TODO: Set up Hugo static site generator
+- [ ] ⏳ DOING: Set up Hugo static site generator
 - [ ] TODO: Create base templates and layouts
 - [ ] TODO: Implement responsive design
 - [ ] TODO: Design and implement JSON data structure for status history
@@ -219,6 +219,7 @@ Total estimated timeline: 7 weeks
 - [ ] TODO: Set up error handling and notifications
 - [ ] TODO: Configure repository permissions
 - [ ] TODO: Implement branch protection rules
+- [ ] TODO: Restore GitHub Actions workflows from backup
 
 ### Phase 4: Testing and Documentation
 - [ ] TODO: Create unit tests for core components
