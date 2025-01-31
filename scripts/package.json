@@ -1,0 +1,12 @@
+{
+  "name": "status-page-issue-parser",
+  "version": "1.0.0",
+  "description": "Issue parser for GitHub-powered status page",
+  "main": "issue-parser.js",
+  "scripts": {
+    "parse": "node issue-parser.js"
+  },
+  "keywords": ["status-page", "github", "issue-parser"],
+  "author": "",
+  "license": "ISC"
+}
