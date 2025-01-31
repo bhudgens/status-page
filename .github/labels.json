@@ -1,0 +1,58 @@
+{
+  "status_labels": [
+    {
+      "name": "status: investigating",
+      "color": "FBCA04",
+      "description": "An incident is currently being investigated"
+    },
+    {
+      "name": "status: identified",
+      "color": "D93F0B",
+      "description": "The root cause of the incident has been identified"
+    },
+    {
+      "name": "status: monitoring",
+      "color": "0075CA",
+      "description": "The incident is being monitored for resolution"
+    },
+    {
+      "name": "status: resolved",
+      "color": "2CBD4E",
+      "description": "The incident has been fully resolved"
+    }
+  ],
+  "severity_labels": [
+    {
+      "name": "severity: critical",
+      "color": "B60205",
+      "description": "Severe impact, system-wide outage or major functionality loss"
+    },
+    {
+      "name": "severity: major",
+      "color": "D93F0B",
+      "description": "Significant impact, partial system functionality loss"
+    },
+    {
+      "name": "severity: minor",
+      "color": "FBCA04",
+      "description": "Limited impact, minimal system disruption"
+    }
+  ],
+  "system_labels": [
+    {
+      "name": "system: web-server",
+      "color": "1D76DB",
+      "description": "Incidents related to the web server"
+    },
+    {
+      "name": "system: database",
+      "color": "0E8A16",
+      "description": "Incidents related to the database service"
+    },
+    {
+      "name": "system: cdn",
+      "color": "5319E7",
+      "description": "Incidents related to the Content Delivery Network"
+    }
+  ]
+}
