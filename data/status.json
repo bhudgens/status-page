@@ -1,59 +1,236 @@
 {
-  "last_updated": "2025-01-31T11:08:09-06:00",
+  "last_updated": "2025-01-30T10:02:00-06:00",
   "current_status": {
     "api": {
       "status": "operational",
       "active_incidents": []
     },
     "web": {
-      "status": "degraded",
-      "active_incidents": ["1"]
-    },
-    "db": {
       "status": "operational",
       "active_incidents": []
+    },
+    "db": {
+      "status": "major_outage",
+      "active_incidents": ["inc-004"]
     }
   },
   "history": {
-    "2025-01-31": {
-      "api": {
-        "status": "operational"
-      },
-      "web": {
-        "status": "degraded"
-      },
-      "db": {
-        "status": "operational"
-      }
-    }
-  },
-  "status_types": {
-    "operational": {
-      "display": "Operational"
+    "2025-01-30": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "operational", "incidents": [] },
+      "db": { "status": "major_outage", "incidents": ["inc-004"] }
     },
-    "degraded": {
-      "display": "Degraded Performance"
+    "2025-01-29": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "degraded", "incidents": ["inc-001"] },
+      "db": { "status": "operational", "incidents": [] }
     },
-    "partial_outage": {
-      "display": "Partial Outage"
+    "2025-01-28": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "major_outage", "incidents": ["inc-001"] },
+      "db": { "status": "operational", "incidents": [] }
     },
-    "major_outage": {
-      "display": "Major Outage"
+    "2025-01-27": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "operational", "incidents": [] },
+      "db": { "status": "operational", "incidents": [] }
     },
-    "no_data": {
-      "display": "No Data"
+    "2025-01-26": {
+      "api": { "status": "degraded", "incidents": ["inc-002"] },
+      "web": { "status": "operational", "incidents": [] },
+      "db": { "status": "operational", "incidents": [] }
+    },
+    "2025-01-25": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "operational", "incidents": [] },
+      "db": { "status": "partial_outage", "incidents": ["inc-003"] }
+    },
+    "2025-01-24": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "operational", "incidents": [] },
+      "db": { "status": "operational", "incidents": [] }
+    },
+    "2025-01-23": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "operational", "incidents": [] },
+      "db": { "status": "operational", "incidents": [] }
+    },
+    "2025-01-22": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "operational", "incidents": [] },
+      "db": { "status": "operational", "incidents": [] }
+    },
+    "2025-01-21": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "operational", "incidents": [] },
+      "db": { "status": "operational", "incidents": [] }
+    },
+    "2025-01-20": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "operational", "incidents": [] },
+      "db": { "status": "operational", "incidents": [] }
+    },
+    "2025-01-19": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "operational", "incidents": [] },
+      "db": { "status": "operational", "incidents": [] }
+    },
+    "2025-01-18": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "operational", "incidents": [] },
+      "db": { "status": "operational", "incidents": [] }
+    },
+    "2025-01-17": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "operational", "incidents": [] },
+      "db": { "status": "operational", "incidents": [] }
+    },
+    "2025-01-16": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "operational", "incidents": [] },
+      "db": { "status": "operational", "incidents": [] }
+    },
+    "2025-01-15": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "operational", "incidents": [] },
+      "db": { "status": "operational", "incidents": [] }
+    },
+    "2025-01-14": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "operational", "incidents": [] },
+      "db": { "status": "operational", "incidents": [] }
+    },
+    "2025-01-13": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "operational", "incidents": [] },
+      "db": { "status": "operational", "incidents": [] }
+    },
+    "2025-01-12": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "operational", "incidents": [] },
+      "db": { "status": "operational", "incidents": [] }
+    },
+    "2025-01-11": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "operational", "incidents": [] },
+      "db": { "status": "operational", "incidents": [] }
+    },
+    "2025-01-10": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "operational", "incidents": [] },
+      "db": { "status": "operational", "incidents": [] }
+    },
+    "2025-01-09": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "operational", "incidents": [] },
+      "db": { "status": "operational", "incidents": [] }
+    },
+    "2025-01-08": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "operational", "incidents": [] },
+      "db": { "status": "operational", "incidents": [] }
+    },
+    "2025-01-07": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "operational", "incidents": [] },
+      "db": { "status": "operational", "incidents": [] }
+    },
+    "2025-01-06": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "operational", "incidents": [] },
+      "db": { "status": "operational", "incidents": [] }
+    },
+    "2025-01-05": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "operational", "incidents": [] },
+      "db": { "status": "operational", "incidents": [] }
+    },
+    "2025-01-04": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "operational", "incidents": [] },
+      "db": { "status": "operational", "incidents": [] }
+    },
+    "2025-01-03": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "operational", "incidents": [] },
+      "db": { "status": "operational", "incidents": [] }
+    },
+    "2025-01-02": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "operational", "incidents": [] },
+      "db": { "status": "operational", "incidents": [] }
+    },
+    "2025-01-01": {
+      "api": { "status": "operational", "incidents": [] },
+      "web": { "status": "operational", "incidents": [] },
+      "db": { "status": "operational", "incidents": [] }
     }
   },
   "incidents": {
-    "active": [{
-      "id": "1",
-      "title": "Intermittent Web Application Issues",
-      "status": "investigating",
-      "severity": "minor",
-      "systems": ["web"],
-      "created_at": "2025-01-31T10:00:00Z",
-      "updated_at": "2025-01-31T10:15:00Z"
-    }],
-    "resolved": []
+    "active": [
+      {
+        "id": "inc-004",
+        "title": "Database Connectivity Issues",
+        "status": "investigating",
+        "severity": "major_outage",
+        "systems": ["db"],
+        "created_at": "2025-01-30T13:01:00-06:00",
+        "updated_at": "2025-01-30T13:01:00-06:00"
+      }
+    ],
+    "resolved": [
+      {
+        "id": "inc-001",
+        "title": "Web Application Performance Issues",
+        "status": "resolved",
+        "severity": "major_outage",
+        "systems": ["web"],
+        "created_at": "2025-01-28T08:00:00-06:00",
+        "updated_at": "2025-01-29T16:00:00-06:00",
+        "resolved_at": "2025-01-29T16:00:00-06:00"
+      },
+      {
+        "id": "inc-002",
+        "title": "API Latency Increase",
+        "status": "resolved",
+        "severity": "degraded",
+        "systems": ["api"],
+        "created_at": "2025-01-26T10:00:00-06:00",
+        "updated_at": "2025-01-26T14:00:00-06:00",
+        "resolved_at": "2025-01-26T14:00:00-06:00"
+      },
+      {
+        "id": "inc-003",
+        "title": "Database Connection Issues",
+        "status": "resolved",
+        "severity": "partial_outage",
+        "systems": ["db"],
+        "created_at": "2025-01-25T15:00:00-06:00",
+        "updated_at": "2025-01-25T18:00:00-06:00",
+        "resolved_at": "2025-01-25T18:00:00-06:00"
+      }
+    ]
+  },
+  "status_types": {
+    "operational": {
+      "severity": 0,
+      "display": "Operational",
+      "color": "#2ecc71"
+    },
+    "degraded": {
+      "severity": 1,
+      "display": "Degraded Performance",
+      "color": "#f1c40f"
+    },
+    "partial_outage": {
+      "severity": 2,
+      "display": "Partial Outage",
+      "color": "#e67e22"
+    },
+    "major_outage": {
+      "severity": 3,
+      "display": "Major Outage",
+      "color": "#e74c3c"
+    }
   }
 }
