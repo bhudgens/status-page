@@ -1,41 +1,39 @@
 ---
-name: 🚨 Incident Report
-about: Create a new incident report
-title: "[Incident] "
-labels: incident
+name: Incident Report
+about: Report a system incident or outage
+title: '[Incident] Short description of the issue'
+labels: 
+  - status: investigating
+  - severity: minor
 assignees: ''
 
 ---
 
-<!-- 
-Instructions:
-1. Change the title to briefly describe the incident
-2. Fill in all required sections below
-3. Set the appropriate labels for severity and status
--->
+## Incident Details
 
-## Summary
-<!-- Brief description of what's happening -->
+### Affected Systems
+<!-- List the systems impacted by this incident (use system: labels) -->
+- [ ] system: web-server
+- [ ] system: database
+- [ ] system: cdn
 
-## Impact
-<!-- Who and what is affected by this incident -->
+### Incident Description
+<!-- Provide a clear and concise description of the incident -->
 
-## Status
-<!-- Current state of the incident -->
-- [ ] Investigating
-- [ ] Identified
-- [ ] Monitoring
-- [ ] Resolved
+### Impact
+<!-- Describe the specific impact on users or services -->
 
-## Severity
-<!-- Select one by changing [ ] to [x] -->
-- [ ] Critical - Complete outage of critical systems
-- [ ] Major - Significant impact to important systems
-- [ ] Minor - Limited impact to non-critical systems
+### Initial Assessment
+<!-- What is known about the incident so far? -->
 
-## Affected Systems
-<!-- List the affected systems -->
-- 
+### Action Items
+<!-- List initial steps being taken to investigate and resolve the incident -->
+- [ ] Investigate root cause
+- [ ] Assess system impact
+- [ ] Develop mitigation strategy
 
-## Updates
-<!-- Initial findings or actions being taken -->
+### Additional Context
+<!-- Any additional information that might be helpful -->
+
+## Status Updates
+<!-- Updates will be added as comments to this issue -->
