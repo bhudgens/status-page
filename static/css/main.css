@@ -544,17 +544,30 @@ body .incident-item {
     margin-bottom: 1.5rem;
 }
 
-.incident-title a {
-    color: #1a202c;
+.incident-link {
     text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.incident-link:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.incident-link:hover .incident-item {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 12px rgba(0,0,0,0.05), 0 16px 24px rgba(0,0,0,0.1);
+}
+
+.incident-title span {
     font-size: 1.4rem;
     font-weight: 700;
     line-height: 1.4;
-    transition: color 0.2s ease;
-    display: inline-block;
+    color: #1a202c;
 }
 
-.incident-title a:hover {
+.incident-link:hover .incident-title span {
     color: #4299e1;
 }
 

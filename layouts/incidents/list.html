@@ -17,27 +17,29 @@
 
     <div class="incident-list">
         {{ range .Pages.ByDate.Reverse }}
-        <div class="incident-item" data-status="{{ .Params.status }}">
-            <div class="incident-title">
-                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        <a href="{{ .RelPermalink }}" class="incident-link">
+            <div class="incident-item" data-status="{{ .Params.status }}">
+                <div class="incident-title">
+                    <span>{{ .Title }}</span>
+                </div>
+                <div class="incident-meta">
+                    <span class="incident-date">{{ .Date.Format "January 2, 2006 15:04 MST" }}</span>
+                    <span class="incident-status status-{{ .Params.status }}">{{ .Params.status }}</span>
+                    {{ if .Params.severity }}
+                    <span class="incident-severity severity-{{ .Params.severity }}">{{ .Params.severity }}</span>
+                    {{ end }}
+                </div>
+                <div class="incident-systems">
+                    <span class="systems-label">Affected Systems:</span>
+                    {{ range .Params.systems }}
+                    <span class="system-tag">{{ . }}</span>
+                    {{ end }}
+                </div>
+                <div class="incident-summary">
+                    {{ .Summary }}
+                </div>
             </div>
-            <div class="incident-meta">
-                <span class="incident-date">{{ .Date.Format "January 2, 2006 15:04 MST" }}</span>
-                <span class="incident-status status-{{ .Params.status }}">{{ .Params.status }}</span>
-                {{ if .Params.severity }}
-                <span class="incident-severity severity-{{ .Params.severity }}">{{ .Params.severity }}</span>
-                {{ end }}
-            </div>
-            <div class="incident-systems">
-                <span class="systems-label">Affected Systems:</span>
-                {{ range .Params.systems }}
-                <span class="system-tag">{{ . }}</span>
-                {{ end }}
-            </div>
-            <div class="incident-summary">
-                {{ .Summary }}
-            </div>
-        </div>
+        </a>
         {{ end }}
     </div>
 
