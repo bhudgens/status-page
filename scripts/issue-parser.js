@@ -19,11 +19,13 @@ const SEVERITY_MAPPING = {
 
 function parseIssue(issue) {
   // Extract status from labels
-  const status = Object.keys(STATUS_MAPPING)
-    .find(label => issue.labels.some(l => l.name === label)) || 'investigating';
+  const statusLabel = Object.keys(STATUS_MAPPING)
+    .find(label => issue.labels.some(l => l.name === label));
+  const status = statusLabel ? STATUS_MAPPING[statusLabel] : 'investigating';
 
-  const severity = Object.keys(SEVERITY_MAPPING)
-    .find(label => issue.labels.some(l => l.name === label)) || 'minor';
+  const severityLabel = Object.keys(SEVERITY_MAPPING)
+    .find(label => issue.labels.some(l => l.name === label));
+  const severity = severityLabel ? SEVERITY_MAPPING[severityLabel] : 'minor';
 
   // Extract affected systems from labels
   const systems = issue.labels
@@ -33,8 +35,8 @@ function parseIssue(issue) {
   return {
     id: issue.number.toString(),
     title: issue.title,
-    status: STATUS_MAPPING[`status: ${status}`] || status,
-    severity: SEVERITY_MAPPING[`severity: ${severity}`] || severity,
+    status: status,
+    severity: severity,
     systems: systems,
     created_at: issue.created_at,
     updated_at: issue.updated_at,
