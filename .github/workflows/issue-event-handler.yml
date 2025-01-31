@@ -35,35 +35,111 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
           cd scripts
-          node validate-issue-template.js
+          node -e "
+            const errorHandler = require('./error-handler');
+            const validateTemplate = require('./validate-issue-template');
+            
+            async function run() {
+              try {
+                await validateTemplate.main();
+              } catch (error) {
+                await errorHandler.handleError(error, 'Issue template validation');
+                process.exit(1);
+              }
+            }
+            
+            run();
+          "
 
       - name: Parse Issue
         if: github.event_name == 'issues' && (github.event.action == 'opened' || github.event.action == 'edited' || github.event.action == 'labeled' || github.event.action == 'unlabeled')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
           cd scripts
-          node issue-parser.js
+          node -e "
+            const errorHandler = require('./error-handler');
+            const issueParser = require('./issue-parser');
+            
+            async function run() {
+              try {
+                await issueParser.main();
+              } catch (error) {
+                await errorHandler.handleError(error, 'Issue parsing');
+                process.exit(1);
+              }
+            }
+            
+            run();
+          "
 
       - name: Process Comments
         if: github.event_name == 'issue_comment' && (github.event.action == 'created' || github.event.action == 'edited')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
           cd scripts
-          node comment-processor.js
+          node -e "
+            const errorHandler = require('./error-handler');
+            const commentProcessor = require('./comment-processor');
+            
+            async function run() {
+              try {
+                await commentProcessor.main();
+              } catch (error) {
+                await errorHandler.handleError(error, 'Comment processing');
+                process.exit(1);
+              }
+            }
+            
+            run();
+          "
+
+      - name: Update Status File
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          cd scripts
+          node -e "
+            const errorHandler = require('./error-handler');
+            const statusUpdater = require('./update-status-file');
+            
+            async function run() {
+              try {
+                await statusUpdater.main();
+              } catch (error) {
+                await errorHandler.handleError(error, 'Status file update');
+                process.exit(1);
+              }
+            }
+            
+            run();
+          "
 
       - name: Update Status Page
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
           npm run build
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .
           git commit -m "Update status page based on issue event"
-          git push
+          git push || {
+            cd scripts
+            node -e "
+              const errorHandler = require('./error-handler');
+              errorHandler.handleError(new Error('Failed to push status page updates'), 'Git operations');
+              process.exit(1);
+            "
+          }
