@@ -1,37 +1,59 @@
 {
-  "systems": [
-    {
-      "id": "web-server",
-      "name": "Web Server",
-      "description": "Main web application server",
-      "category": "infrastructure",
-      "labels": ["primary"]
+  "last_updated": "2025-01-31T11:08:09-06:00",
+  "current_status": {
+    "api": {
+      "status": "operational",
+      "active_incidents": []
     },
-    {
-      "id": "database",
-      "name": "Database",
-      "description": "Primary database service",
-      "category": "data",
-      "labels": ["critical"]
+    "web": {
+      "status": "degraded",
+      "active_incidents": ["1"]
     },
-    {
-      "id": "cdn",
-      "name": "Content Delivery Network",
-      "description": "Global content distribution network",
-      "category": "network",
-      "labels": ["performance"]
+    "db": {
+      "status": "operational",
+      "active_incidents": []
     }
-  ],
-  "incidents": [
-    {
+  },
+  "history": {
+    "2025-01-31": {
+      "api": {
+        "status": "operational"
+      },
+      "web": {
+        "status": "degraded"
+      },
+      "db": {
+        "status": "operational"
+      }
+    }
+  },
+  "status_types": {
+    "operational": {
+      "display": "Operational"
+    },
+    "degraded": {
+      "display": "Degraded Performance"
+    },
+    "partial_outage": {
+      "display": "Partial Outage"
+    },
+    "major_outage": {
+      "display": "Major Outage"
+    },
+    "no_data": {
+      "display": "No Data"
+    }
+  },
+  "incidents": {
+    "active": [{
       "id": "1",
-      "title": "Intermittent Web Server Connectivity",
+      "title": "Intermittent Web Application Issues",
       "status": "investigating",
       "severity": "minor",
-      "systems": ["web-server"],
+      "systems": ["web"],
       "created_at": "2025-01-31T10:00:00Z",
-      "updated_at": "2025-01-31T10:15:00Z",
-      "resolved_at": null
-    }
-  ]
+      "updated_at": "2025-01-31T10:15:00Z"
+    }],
+    "resolved": []
+  }
 }
