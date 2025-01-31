@@ -1,11 +1,27 @@
 # Default owners for the entire repository
 * @bhudgens
 
-# Specific owners for critical files
+# Specific owners for critical files and directories
 /scripts/ @bhudgens @status-page-maintainers
 /.github/ @bhudgens @status-page-maintainers
 /data/ @bhudgens @status-page-maintainers
+/layouts/ @bhudgens @status-page-maintainers
 
-# Restrict changes to core configuration files
-hugo.toml @bhudgens
-config/ @bhudgens
+# GitHub Actions and security-related files require strict review
+/.github/workflows/ @bhudgens
+/.github/ISSUE_TEMPLATE/ @bhudgens
+/SECURITY.md @bhudgens
+/CODEOWNERS @bhudgens
+
+# Core configuration and template files
+/hugo.toml @bhudgens
+/config/ @bhudgens
+/archetypes/ @bhudgens
+
+# Content management
+/content/incidents/ @bhudgens @status-page-maintainers
+/content/systems/ @bhudgens @status-page-maintainers
+
+# Asset and style files
+/assets/ @bhudgens @status-page-maintainers
+/static/ @bhudgens @status-page-maintainers
