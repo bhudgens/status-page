@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Application Performance Issues - Status Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css" type="text/css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <a href="/" class="brand">Status Page</a>
+                <div class="nav-links">
+                    <a href="/">Current Status</a>
+                    <a href="/incidents">Incidents</a>
+                    <a href="/systems">Systems</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="status-page-main">
+        
+<div class="incident-detail">
+    <div class="incident-detail-header">
+        <h1>Web Application Performance Issues</h1>
+        <div class="incident-meta">
+            <div class="incident-status status-resolved">
+                <span class="status-label">Status</span>
+                resolved
+            </div>
+            
+            <div class="incident-severity severity-major_outage">
+                <span class="status-label">Severity</span>
+                major_outage
+            </div>
+            
+            <div class="incident-date">
+                <span class="status-label">Reported</span>
+                January 28, 2025 08:00 CST
+            </div>
+            
+            <div class="incident-resolved">
+                <span class="status-label">Resolved</span>
+                January 29, 2025 16:00 CST
+            </div>
+            
+        </div>
+
+        <div class="affected-systems">
+            <h3>Affected Systems</h3>
+            <div class="system-tags">
+                
+                <span class="system-tag">web</span>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="incident-content">
+        <p>A significant performance degradation was detected in our web application, causing slow response times and occasional timeouts for users. Our engineering team identified a memory leak in the caching layer as the root cause and implemented a fix.</p>
+<p><strong>Root Cause</strong>: A memory leak in the application&rsquo;s caching layer was causing gradual performance degradation.</p>
+<p><strong>Resolution</strong>: The engineering team implemented proper cache cleanup procedures and optimized memory management in the affected components.</p>
+<p><strong>Impact</strong>: Users experienced slow page loads and occasional timeouts during the incident period.</p>
+
+    </div>
+
+    
+    <div class="incident-timeline">
+        <h2>Timeline</h2>
+        
+        <div class="timeline-entry status-investigating">
+            <div class="timeline-meta">
+                <span class="timeline-date">January 28, 2025 08:00 CST</span>
+                <span class="timeline-status status-investigating">investigating</span>
+            </div>
+            <div class="timeline-content">
+                We are investigating reports of significant performance degradation in our web application.
+            </div>
+        </div>
+        
+        <div class="timeline-entry status-identified">
+            <div class="timeline-meta">
+                <span class="timeline-date">January 28, 2025 09:30 CST</span>
+                <span class="timeline-status status-identified">identified</span>
+            </div>
+            <div class="timeline-content">
+                The root cause has been identified as a memory leak in our caching layer. Our team is working on a fix.
+            </div>
+        </div>
+        
+        <div class="timeline-entry status-monitoring">
+            <div class="timeline-meta">
+                <span class="timeline-date">January 28, 2025 14:00 CST</span>
+                <span class="timeline-status status-monitoring">monitoring</span>
+            </div>
+            <div class="timeline-content">
+                A fix has been deployed and we are monitoring the system for improvement.
+            </div>
+        </div>
+        
+        <div class="timeline-entry status-resolved">
+            <div class="timeline-meta">
+                <span class="timeline-date">January 29, 2025 16:00 CST</span>
+                <span class="timeline-status status-resolved">resolved</span>
+            </div>
+            <div class="timeline-content">
+                The issue has been fully resolved. The memory leak was fixed and system performance has returned to normal levels.
+            </div>
+        </div>
+        
+    </div>
+    
+
+    <div class="incident-footer">
+        <a href="/incidents" class="back-link">← Back to Incidents</a>
+    </div>
+</div>
+
+
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

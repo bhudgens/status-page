@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Incident History - Status Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/main.css" type="text/css">
 </head>
 <body>
@@ -20,15 +21,15 @@
         </nav>
     </header>
 
-    <main>
+    <main class="status-page-main">
         
 <div class="incidents-page">
     <h1>Incident History</h1>
     
     <div class="incident-filters">
         <div class="filter-group">
-            <label>Status:</label>
-            <select id="status-filter">
+            <label for="status-filter">Filter by Status</label>
+            <select id="status-filter" class="form-select">
                 <option value="all">All</option>
                 <option value="investigating">Investigating</option>
                 <option value="identified">Identified</option>
@@ -39,6 +40,53 @@
     </div>
 
     <div class="incident-list">
+        
+        <div class="incident-item" data-status="investigating">
+            <div class="incident-title">
+                <a href="/incidents/inc-004/">Database Connectivity Issues</a>
+            </div>
+            <div class="incident-meta">
+                <span class="incident-date">January 30, 2025 13:01 CST</span>
+                <span class="incident-status status-investigating">investigating</span>
+                
+                <span class="incident-severity severity-major_outage">major_outage</span>
+                
+            </div>
+            <div class="incident-systems">
+                <span class="systems-label">Affected Systems:</span>
+                
+                <span class="system-tag">db</span>
+                
+            </div>
+            <div class="incident-summary">
+                <p>Our monitoring systems have detected widespread database connectivity issues. Our engineering team is actively investigating the root cause. We will provide updates as more information becomes available.</p>
+<p><strong>Impact</strong>: Users may experience slow response times or errors when attempting to access database-dependent services.</p>
+            </div>
+        </div>
+        
+        <div class="incident-item" data-status="resolved">
+            <div class="incident-title">
+                <a href="/incidents/inc-001/">Web Application Performance Issues</a>
+            </div>
+            <div class="incident-meta">
+                <span class="incident-date">January 28, 2025 08:00 CST</span>
+                <span class="incident-status status-resolved">resolved</span>
+                
+                <span class="incident-severity severity-major_outage">major_outage</span>
+                
+            </div>
+            <div class="incident-systems">
+                <span class="systems-label">Affected Systems:</span>
+                
+                <span class="system-tag">web</span>
+                
+            </div>
+            <div class="incident-summary">
+                <p>A significant performance degradation was detected in our web application, causing slow response times and occasional timeouts for users. Our engineering team identified a memory leak in the caching layer as the root cause and implemented a fix.</p>
+<p><strong>Root Cause</strong>: A memory leak in the application&rsquo;s caching layer was causing gradual performance degradation.</p>
+<p><strong>Resolution</strong>: The engineering team implemented proper cache cleanup procedures and optimized memory management in the affected components.</p>
+            </div>
+        </div>
         
     </div>
 
@@ -59,11 +107,6 @@
 </div>
 
     </main>
-
-    <footer>
-        <div class="container">
-            <p>Status page powered by GitHub</p>
-        </div>
-    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

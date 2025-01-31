@@ -4,28 +4,34 @@
         <h1>{{ .Title }}</h1>
         <div class="incident-meta">
             <div class="incident-status status-{{ .Params.status }}">
-                Current Status: {{ .Params.status }}
+                <span class="status-label">Status</span>
+                {{ .Params.status }}
             </div>
             {{ if .Params.severity }}
             <div class="incident-severity severity-{{ .Params.severity }}">
-                Severity: {{ .Params.severity }}
+                <span class="status-label">Severity</span>
+                {{ .Params.severity }}
             </div>
             {{ end }}
             <div class="incident-date">
-                Reported: {{ .Date.Format "January 2, 2006 15:04 MST" }}
+                <span class="status-label">Reported</span>
+                {{ .Date.Format "January 2, 2006 15:04 MST" }}
             </div>
             {{ if .Params.resolved_at }}
             <div class="incident-resolved">
-                Resolved: {{ dateFormat "January 2, 2006 15:04 MST" .Params.resolved_at }}
+                <span class="status-label">Resolved</span>
+                {{ dateFormat "January 2, 2006 15:04 MST" .Params.resolved_at }}
             </div>
             {{ end }}
         </div>
 
         <div class="affected-systems">
-            <h3>Affected Systems:</h3>
-            {{ range .Params.systems }}
-            <span class="system-tag">{{ . }}</span>
-            {{ end }}
+            <h3>Affected Systems</h3>
+            <div class="system-tags">
+                {{ range .Params.systems }}
+                <span class="system-tag">{{ . }}</span>
+                {{ end }}
+            </div>
         </div>
     </div>
 

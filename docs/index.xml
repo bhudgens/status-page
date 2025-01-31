@@ -2,10 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>System Status</title>
-    <link>//localhost:1313/</link>
+    <link>//localhost:35177/</link>
     <description>Recent content on System Status</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <atom:link href="//localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 30 Jan 2025 13:01:00 -0600</lastBuildDate>
+    <atom:link href="//localhost:35177/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Database Connectivity Issues</title>
+      <link>//localhost:35177/incidents/inc-004/</link>
+      <pubDate>Thu, 30 Jan 2025 13:01:00 -0600</pubDate>
+      <guid>//localhost:35177/incidents/inc-004/</guid>
+      <description>&lt;p&gt;Our monitoring systems have detected widespread database connectivity issues. Our engineering team is actively investigating the root cause. We will provide updates as more information becomes available.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Impact&lt;/strong&gt;: Users may experience slow response times or errors when attempting to access database-dependent services.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Web Application Performance Issues</title>
+      <link>//localhost:35177/incidents/inc-001/</link>
+      <pubDate>Tue, 28 Jan 2025 08:00:00 -0600</pubDate>
+      <guid>//localhost:35177/incidents/inc-001/</guid>
+      <description>&lt;p&gt;A significant performance degradation was detected in our web application, causing slow response times and occasional timeouts for users. Our engineering team identified a memory leak in the caching layer as the root cause and implemented a fix.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Root Cause&lt;/strong&gt;: A memory leak in the application&amp;rsquo;s caching layer was causing gradual performance degradation.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Resolution&lt;/strong&gt;: The engineering team implemented proper cache cleanup procedures and optimized memory management in the affected components.&lt;/p&gt;</description>
+    </item>
   </channel>
 </rss>

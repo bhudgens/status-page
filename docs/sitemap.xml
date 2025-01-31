@@ -2,10 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>//localhost:1313/incidents/</loc>
+    <loc>//localhost:35177/incidents/inc-004/</loc>
+    <lastmod>2025-01-30T13:01:00-06:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/</loc>
+    <loc>//localhost:35177/incidents/</loc>
+    <lastmod>2025-01-30T13:01:00-06:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/systems/</loc>
+    <loc>//localhost:35177/</loc>
+    <lastmod>2025-01-30T13:01:00-06:00</lastmod>
+  </url><url>
+    <loc>//localhost:35177/incidents/inc-001/</loc>
+    <lastmod>2025-01-28T08:00:00-06:00</lastmod>
+  </url><url>
+    <loc>//localhost:35177/systems/</loc>
   </url>
 </urlset>
