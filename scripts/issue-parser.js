@@ -3,108 +3,123 @@
 const fs = require('fs');
 const path = require('path');
 
-// Function to parse issue content and extract status information
-function parseIssueContent(issueBody) {
-  // Define regex patterns to extract key information
-  const systemPattern = /### Affected Systems\n\n(.*?)(?:\n\n|$)/s;
-  const severityPattern = /### Severity\n\n(critical|major|minor)/;
-  const statusPattern = /### Current Status\n\n(investigating|identified|monitoring|resolved)/;
+// Mapping of GitHub issue labels to status and severity
+const STATUS_MAPPING = {
+  'status: investigating': 'investigating',
+  'status: identified': 'identified',
+  'status: monitoring': 'monitoring',
+  'status: resolved': 'resolved'
+};
 
-  // Extract information using regex
-  const systemMatch = issueBody.match(systemPattern);
-  const severityMatch = issueBody.match(severityPattern);
-  const statusMatch = issueBody.match(statusPattern);
+const SEVERITY_MAPPING = {
+  'severity: critical': 'critical',
+  'severity: major': 'major',
+  'severity: minor': 'minor'
+};
 
-  // Parse systems (assuming comma-separated or newline-separated list)
-  const systems = systemMatch 
-    ? systemMatch[1].split(/[,\n]/).map(system => system.trim()).filter(Boolean)
-    : [];
+function parseIssue(issue) {
+  // Extract status from labels
+  const status = Object.keys(STATUS_MAPPING)
+    .find(label => issue.labels.some(l => l.name === label)) || 'investigating';
 
-  // Return parsed issue information
+  const severity = Object.keys(SEVERITY_MAPPING)
+    .find(label => issue.labels.some(l => l.name === label)) || 'minor';
+
+  // Extract affected systems from labels
+  const systems = issue.labels
+    .filter(label => label.name.startsWith('system:'))
+    .map(label => label.name.replace('system:', ''));
+
   return {
+    id: issue.number.toString(),
+    title: issue.title,
+    status: STATUS_MAPPING[`status: ${status}`] || status,
+    severity: SEVERITY_MAPPING[`severity: ${severity}`] || severity,
     systems: systems,
-    severity: severityMatch ? severityMatch[1] : null,
-    status: statusMatch ? statusMatch[1] : null
+    created_at: issue.created_at,
+    updated_at: issue.updated_at,
+    resolved_at: issue.closed_at || null
   };
 }
 
-// Function to update status.json with issue information
-function updateStatusFile(parsedIssue) {
-  const statusFilePath = path.join(__dirname, '..', 'data', 'status.json');
-  
+function updateStatusData(issue) {
+  // Read existing status data
+  const statusDataPath = path.join(__dirname, '..', 'data', 'status.json');
+  let statusData = { systems: [], incidents: [] };
+
   try {
-    // Read existing status file
-    const statusData = JSON.parse(fs.readFileSync(statusFilePath, 'utf8'));
+    statusData = JSON.parse(fs.readFileSync(statusDataPath, 'utf8'));
+  } catch (error) {
+    console.warn('No existing status data found. Creating new file.');
+  }
 
-    // Update incidents array
-    statusData.incidents = statusData.incidents || [];
+  // Parse the current issue
+  const parsedIssue = parseIssue(issue);
+
+  // Add or update the incident
+  const existingIncidentIndex = statusData.incidents.findIndex(inc => inc.id === parsedIssue.id);
+  
+  if (existingIncidentIndex !== -1) {
+    // Update existing incident
+    statusData.incidents[existingIncidentIndex] = parsedIssue;
+  } else {
+    // Add new incident
+    statusData.incidents.push(parsedIssue);
+  }
+
+  // Update systems status based on incidents
+  parsedIssue.systems.forEach(systemName => {
+    const systemIndex = statusData.systems.findIndex(sys => sys.id === systemName);
     
-    // Add new incident or update existing
-    const existingIncidentIndex = statusData.incidents.findIndex(
-      incident => incident.systems.some(
-        system => parsedIssue.systems.includes(system)
-      )
-    );
+    if (systemIndex === -1) {
+      // Add new system if not exists
+      statusData.systems.push({
+        id: systemName,
+        name: systemName,
+        description: `Status for ${systemName}`,
+        category: 'default',
+        labels: []
+      });
+    }
+  });
 
-    const newIncident = {
-      id: `inc-${Date.now()}`,
-      title: 'Incident Title', // This would ideally come from the issue title
-      status: parsedIssue.status,
-      severity: parsedIssue.severity,
-      systems: parsedIssue.systems,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
-    };
+  // Write updated status data
+  fs.writeFileSync(statusDataPath, JSON.stringify(statusData, null, 2));
+  console.log(`Updated status data for issue #${parsedIssue.id}`);
+}
 
-    if (existingIncidentIndex !== -1) {
-      // Update existing incident
-      statusData.incidents[existingIncidentIndex] = {
-        ...statusData.incidents[existingIncidentIndex],
-        ...newIncident
-      };
-    } else {
-      // Add new incident
-      statusData.incidents.push(newIncident);
+// Main function to be called by GitHub Actions
+function main() {
+  // Read issue data from environment variable or input file
+  const issueDataPath = process.env.GITHUB_EVENT_PATH;
+  
+  if (!issueDataPath) {
+    console.error('No GitHub event path provided');
+    process.exit(1);
+  }
+
+  try {
+    const issueData = JSON.parse(fs.readFileSync(issueDataPath, 'utf8'));
+    const issue = issueData.issue || issueData.pull_request;
+
+    if (!issue) {
+      console.error('No issue or pull request found in event data');
+      process.exit(1);
     }
 
-    // Write updated status file
-    fs.writeFileSync(statusFilePath, JSON.stringify(statusData, null, 2));
-    
-    console.log('Status file updated successfully');
-    return true;
+    updateStatusData(issue);
   } catch (error) {
-    console.error('Error updating status file:', error);
-    return false;
+    console.error('Error processing issue:', error);
+    process.exit(1);
   }
 }
 
-// Main function to process an issue
-function processIssue(issueBody) {
-  const parsedIssue = parseIssueContent(issueBody);
-  
-  if (parsedIssue.systems.length > 0 && parsedIssue.status && parsedIssue.severity) {
-    return updateStatusFile(parsedIssue);
-  } else {
-    console.error('Incomplete issue information');
-    return false;
-  }
-}
-
-// Export functions for potential testing or external use
-module.exports = {
-  parseIssueContent,
-  updateStatusFile,
-  processIssue
-};
-
-// If run directly, expect issue body from stdin
+// Only run main if script is called directly
 if (require.main === module) {
-  let issueBody = '';
-  process.stdin.on('data', (chunk) => {
-    issueBody += chunk;
-  });
-  
-  process.stdin.on('end', () => {
-    processIssue(issueBody);
-  });
+  main();
 }
+
+module.exports = {
+  parseIssue,
+  updateStatusData
+};

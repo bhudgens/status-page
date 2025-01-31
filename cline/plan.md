@@ -213,7 +213,7 @@ Total estimated timeline: 7 weeks
 - [x] ✅ DONE: Implement 7-day status visualization in system cards (similar to GitHub's contribution graph)
 
 ### Phase 3: GitHub Integration Features
-- [ ] TODO: Implement issue parser for status updates
+- [⏳] DOING: Implement issue parser for status updates
 - [ ] TODO: Create label-based status mapping
 - [ ] TODO: Build comment processing for updates
 - [ ] TODO: Add issue template enforcement
