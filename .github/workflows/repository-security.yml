@@ -1,0 +1,82 @@
+name: Repository Security
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  security-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Check CODEOWNERS file
+        run: |
+          if [ ! -f CODEOWNERS ]; then
+            echo "CODEOWNERS file is missing"
+            exit 1
+          fi
+
+      - name: Validate CODEOWNERS syntax
+        run: |
+          # Basic syntax check for CODEOWNERS file
+          while IFS= read -r line; do
+            if [[ ! "$line" =~ ^(#|[[:space:]]*$|[^[:space:]]+[[:space:]]+@[a-zA-Z0-9-]+(/[a-zA-Z0-9-]+)*) ]]; then
+              echo "Invalid CODEOWNERS syntax: $line"
+              exit 1
+            fi
+          done < CODEOWNERS
+
+      - name: Check branch protection rules
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Ensure main branch has required protections
+          branch_rules=$(gh api /repos/${{ github.repository }}/branches/main/protection)
+          
+          # Check for required reviews
+          required_reviews=$(echo "$branch_rules" | jq '.required_pull_request_reviews.required_approving_review_count // 0')
+          if [ "$required_reviews" -lt 1 ]; then
+            echo "Branch requires at least 1 review"
+            exit 1
+          fi
+
+          # Check for status checks
+          status_checks=$(echo "$branch_rules" | jq '.required_status_checks.contexts // []')
+          required_checks=("security-checks" "build" "test")
+          
+          for check in "${required_checks[@]}"; do
+            if ! echo "$status_checks" | grep -q "$check"; then
+              echo "Missing required status check: $check"
+              exit 1
+            fi
+          done
+
+      - name: Check repository settings
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Verify repository has basic security settings
+          repo_settings=$(gh api /repos/${{ github.repository }})
+          
+          # Ensure default branch is protected
+          default_branch=$(echo "$repo_settings" | jq -r '.default_branch')
+          if [ "$default_branch" != "main" ]; then
+            echo "Default branch should be 'main'"
+            exit 1
+          fi
+
+          # Check for vulnerability alerts
+          vulnerability_alerts=$(gh api /repos/${{ github.repository }}/vulnerability-alerts)
+          if [ "$vulnerability_alerts" != "true" ]; then
+            echo "Vulnerability alerts should be enabled"
+            exit 1
+          fi
+
+      - name: Scan for sensitive information
+        uses: zricethezav/gitleaks-action@master

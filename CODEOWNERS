@@ -1,0 +1,11 @@
+# Default owners for the entire repository
+* @bhudgens
+
+# Specific owners for critical files
+/scripts/ @bhudgens @status-page-maintainers
+/.github/ @bhudgens @status-page-maintainers
+/data/ @bhudgens @status-page-maintainers
+
+# Restrict changes to core configuration files
+hugo.toml @bhudgens
+config/ @bhudgens
