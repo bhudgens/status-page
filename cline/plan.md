@@ -1,1 +1,1 @@
-- [⏳ DOING]: Implement issue parser for status updates
+- [✅ DONE]: Implement issue parser for status updates
