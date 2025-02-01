@@ -162,7 +162,7 @@
                 {{ $incident := index (where $status.incidents.active "id" .) 0 }}
                 <div class="incident-alert">
                     <span class="incident-severity {{ $incident.severity }}"></span>
-                    <a href="/incidents/{{ $incident.id }}">{{ $incident.title }}</a>
+                    <a href="{{ printf "/incidents/%s" $incident.id | relURL }}">{{ $incident.title }}</a>
                 </div>
                 {{ end }}
             </div>
@@ -179,7 +179,7 @@
             {{ range $status.incidents.active }}
             <div class="incident-card severity-{{ .severity }}">
                 <div class="incident-header">
-                    <h3><a href="/incidents/{{ .id }}">{{ .title }}</a></h3>
+                    <h3><a href="{{ printf "/incidents/%s" .id | relURL }}">{{ .title }}</a></h3>
                     <span class="incident-time">{{ time .created_at | time.Format "15:04 MST" }}</span>
                 </div>
                 <div class="incident-meta">
