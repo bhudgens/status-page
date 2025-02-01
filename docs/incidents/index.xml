@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Incident History on System Status</title>
-    <link>/status-page/incidents/</link>
+    <link>/incidents/</link>
     <description>Recent content in Incident History on System Status</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 30 Jan 2025 13:01:00 -0600</lastBuildDate>
-    <atom:link href="/status-page/incidents/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/incidents/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Database Connectivity Issues</title>
-      <link>/status-page/incidents/inc-004/</link>
+      <link>/incidents/inc-004/</link>
       <pubDate>Thu, 30 Jan 2025 13:01:00 -0600</pubDate>
-      <guid>/status-page/incidents/inc-004/</guid>
+      <guid>/incidents/inc-004/</guid>
       <description>&lt;h1 id=&#34;database-connectivity-issues&#34;&gt;Database Connectivity Issues&lt;/h1&gt;&#xA;&lt;h2 id=&#34;initial-report&#34;&gt;Initial Report&lt;/h2&gt;&#xA;&lt;p&gt;Our monitoring systems have detected significant connectivity issues with our primary database cluster.&lt;/p&gt;&#xA;&lt;h2 id=&#34;updates&#34;&gt;Updates&lt;/h2&gt;&#xA;&lt;h3 id=&#34;2025-01-30-130100-cst---investigating&#34;&gt;2025-01-30 13:01:00 CST - Investigating&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Multiple database connection timeouts reported&lt;/li&gt;&#xA;&lt;li&gt;Engineering team investigating root cause&lt;/li&gt;&#xA;&lt;li&gt;Failover systems being evaluated&lt;/li&gt;&#xA;&lt;li&gt;Initial metrics show 80% of database connections failing&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
     <item>
       <title>Web Application Performance Issues</title>
-      <link>/status-page/incidents/inc-001/</link>
+      <link>/incidents/inc-001/</link>
       <pubDate>Tue, 28 Jan 2025 08:00:00 -0600</pubDate>
-      <guid>/status-page/incidents/inc-001/</guid>
+      <guid>/incidents/inc-001/</guid>
       <description>&lt;h1 id=&#34;web-application-performance-issues&#34;&gt;Web Application Performance Issues&lt;/h1&gt;&#xA;&lt;h2 id=&#34;initial-report&#34;&gt;Initial Report&lt;/h2&gt;&#xA;&lt;p&gt;Our monitoring systems detected significant performance degradation in the web application layer.&lt;/p&gt;&#xA;&lt;h2 id=&#34;updates&#34;&gt;Updates&lt;/h2&gt;&#xA;&lt;h3 id=&#34;2025-01-28-080000-cst---investigating&#34;&gt;2025-01-28 08:00:00 CST - Investigating&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Initial detection of performance issues&lt;/li&gt;&#xA;&lt;li&gt;Response times increased by 300%&lt;/li&gt;&#xA;&lt;li&gt;Engineering team investigating root cause&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;2025-01-28-100000-cst---identified&#34;&gt;2025-01-28 10:00:00 CST - Identified&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Root cause identified as database connection pool exhaustion&lt;/li&gt;&#xA;&lt;li&gt;Temporary mitigation in place by increasing pool size&lt;/li&gt;&#xA;&lt;li&gt;Working on permanent fix&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;2025-01-29-140000-cst---monitoring&#34;&gt;2025-01-29 14:00:00 CST - Monitoring&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Implemented permanent fix:&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Optimized database queries&lt;/li&gt;&#xA;&lt;li&gt;Added connection pooling improvements&lt;/li&gt;&#xA;&lt;li&gt;Deployed updated configuration&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Monitoring system performance&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;2025-01-29-160000-cst---resolved&#34;&gt;2025-01-29 16:00:00 CST - Resolved&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Performance metrics returned to normal levels&lt;/li&gt;&#xA;&lt;li&gt;Additional monitoring in place&lt;/li&gt;&#xA;&lt;li&gt;Post-incident review scheduled&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
   </channel>

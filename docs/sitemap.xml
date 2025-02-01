@@ -2,18 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>/status-page/incidents/inc-004/</loc>
+    <loc>/incidents/inc-004/</loc>
     <lastmod>2025-01-30T13:01:00-06:00</lastmod>
   </url><url>
-    <loc>/status-page/incidents/</loc>
+    <loc>/incidents/</loc>
     <lastmod>2025-01-30T13:01:00-06:00</lastmod>
   </url><url>
-    <loc>/status-page/</loc>
+    <loc>/</loc>
     <lastmod>2025-01-30T13:01:00-06:00</lastmod>
   </url><url>
-    <loc>/status-page/incidents/inc-001/</loc>
+    <loc>/incidents/inc-001/</loc>
     <lastmod>2025-01-28T08:00:00-06:00</lastmod>
   </url><url>
-    <loc>/status-page/systems/</loc>
+    <loc>/systems/</loc>
   </url>
 </urlset>
