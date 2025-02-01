@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=34541&amp;path=livereload" data-no-instant defer></script>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Application Performance Issues - Status Page</title>
@@ -26,7 +26,6 @@
                 <div class="nav-links">
                     <a href="/">Current Status</a>
                     <a href="/incidents">Incidents</a>
-                    <a href="/systems">Systems</a>
                 </div>
             </div>
         </nav>
@@ -71,58 +70,42 @@
     </div>
 
     <div class="incident-content">
-        <p>A significant performance degradation was detected in our web application, causing slow response times and occasional timeouts for users. Our engineering team identified a memory leak in the caching layer as the root cause and implemented a fix.</p>
-<p><strong>Root Cause</strong>: A memory leak in the application&rsquo;s caching layer was causing gradual performance degradation.</p>
-<p><strong>Resolution</strong>: The engineering team implemented proper cache cleanup procedures and optimized memory management in the affected components.</p>
-<p><strong>Impact</strong>: Users experienced slow page loads and occasional timeouts during the incident period.</p>
+        <h1 id="web-application-performance-issues">Web Application Performance Issues</h1>
+<h2 id="initial-report">Initial Report</h2>
+<p>Our monitoring systems detected significant performance degradation in the web application layer.</p>
+<h2 id="updates">Updates</h2>
+<h3 id="2025-01-28-080000-cst---investigating">2025-01-28 08:00:00 CST - Investigating</h3>
+<ul>
+<li>Initial detection of performance issues</li>
+<li>Response times increased by 300%</li>
+<li>Engineering team investigating root cause</li>
+</ul>
+<h3 id="2025-01-28-100000-cst---identified">2025-01-28 10:00:00 CST - Identified</h3>
+<ul>
+<li>Root cause identified as database connection pool exhaustion</li>
+<li>Temporary mitigation in place by increasing pool size</li>
+<li>Working on permanent fix</li>
+</ul>
+<h3 id="2025-01-29-140000-cst---monitoring">2025-01-29 14:00:00 CST - Monitoring</h3>
+<ul>
+<li>Implemented permanent fix:
+<ul>
+<li>Optimized database queries</li>
+<li>Added connection pooling improvements</li>
+<li>Deployed updated configuration</li>
+</ul>
+</li>
+<li>Monitoring system performance</li>
+</ul>
+<h3 id="2025-01-29-160000-cst---resolved">2025-01-29 16:00:00 CST - Resolved</h3>
+<ul>
+<li>Performance metrics returned to normal levels</li>
+<li>Additional monitoring in place</li>
+<li>Post-incident review scheduled</li>
+</ul>
 
     </div>
 
-    
-    <div class="incident-timeline">
-        <h2>Timeline</h2>
-        
-        <div class="timeline-entry status-investigating">
-            <div class="timeline-meta">
-                <span class="timeline-date">January 28, 2025 08:00 CST</span>
-                <span class="timeline-status status-investigating">investigating</span>
-            </div>
-            <div class="timeline-content">
-                We are investigating reports of significant performance degradation in our web application.
-            </div>
-        </div>
-        
-        <div class="timeline-entry status-identified">
-            <div class="timeline-meta">
-                <span class="timeline-date">January 28, 2025 09:30 CST</span>
-                <span class="timeline-status status-identified">identified</span>
-            </div>
-            <div class="timeline-content">
-                The root cause has been identified as a memory leak in our caching layer. Our team is working on a fix.
-            </div>
-        </div>
-        
-        <div class="timeline-entry status-monitoring">
-            <div class="timeline-meta">
-                <span class="timeline-date">January 28, 2025 14:00 CST</span>
-                <span class="timeline-status status-monitoring">monitoring</span>
-            </div>
-            <div class="timeline-content">
-                A fix has been deployed and we are monitoring the system for improvement.
-            </div>
-        </div>
-        
-        <div class="timeline-entry status-resolved">
-            <div class="timeline-meta">
-                <span class="timeline-date">January 29, 2025 16:00 CST</span>
-                <span class="timeline-status status-resolved">resolved</span>
-            </div>
-            <div class="timeline-content">
-                The issue has been fully resolved. The memory leak was fixed and system performance has returned to normal levels.
-            </div>
-        </div>
-        
-    </div>
     
 
     <div class="incident-footer">

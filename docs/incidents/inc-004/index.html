@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=34541&amp;path=livereload" data-no-instant defer></script>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Database Connectivity Issues - Status Page</title>
@@ -26,7 +26,6 @@
                 <div class="nav-links">
                     <a href="/">Current Status</a>
                     <a href="/incidents">Incidents</a>
-                    <a href="/systems">Systems</a>
                 </div>
             </div>
         </nav>
@@ -66,26 +65,20 @@
     </div>
 
     <div class="incident-content">
-        <p>Our monitoring systems have detected widespread database connectivity issues. Our engineering team is actively investigating the root cause. We will provide updates as more information becomes available.</p>
-<p><strong>Impact</strong>: Users may experience slow response times or errors when attempting to access database-dependent services.</p>
+        <h1 id="database-connectivity-issues">Database Connectivity Issues</h1>
+<h2 id="initial-report">Initial Report</h2>
+<p>Our monitoring systems have detected significant connectivity issues with our primary database cluster.</p>
+<h2 id="updates">Updates</h2>
+<h3 id="2025-01-30-130100-cst---investigating">2025-01-30 13:01:00 CST - Investigating</h3>
+<ul>
+<li>Multiple database connection timeouts reported</li>
+<li>Engineering team investigating root cause</li>
+<li>Failover systems being evaluated</li>
+<li>Initial metrics show 80% of database connections failing</li>
+</ul>
 
     </div>
 
-    
-    <div class="incident-timeline">
-        <h2>Timeline</h2>
-        
-        <div class="timeline-entry status-investigating">
-            <div class="timeline-meta">
-                <span class="timeline-date">January 30, 2025 13:01 CST</span>
-                <span class="timeline-status status-investigating">investigating</span>
-            </div>
-            <div class="timeline-content">
-                We are investigating reports of database connectivity issues affecting multiple services.
-            </div>
-        </div>
-        
-    </div>
     
 
     <div class="incident-footer">
