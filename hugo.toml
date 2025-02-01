@@ -1,4 +1,4 @@
-baseURL = "/status-page/"
+baseURL = "/"
 languageCode = "en-us"
 title = "System Status"
 disableKinds = ["taxonomy", "term"]
