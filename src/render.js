@@ -54,14 +54,14 @@ export function renderHtml(model) {
           <strong>${escapeHtml(overallText(model))}</strong>
         </div>
         <div class="quick-stats">
-          <div><strong>${model.active_incidents.length}</strong><span>Active incidents</span></div>
-          <div><strong>${affectedSystems}</strong><span>Affected systems</span></div>
-          <div><strong>${affectedDays}</strong><span>Affected days</span></div>
+          <a href="#active-incidents"><strong>${model.active_incidents.length}</strong><span>Active incidents</span></a>
+          <a href="#systems"><strong>${affectedSystems}</strong><span>Affected systems</span></a>
+          <a href="#history"><strong>${affectedDays}</strong><span>Affected days</span></a>
         </div>
       </div>
     </header>
 
-    <section class="panel history-panel">
+    <section class="panel history-panel" id="history">
       <div class="section-heading">
         <div>
           <p class="section-kicker">History</p>
@@ -85,7 +85,7 @@ export function renderHtml(model) {
     ${hasSystems ? renderSystems(groupedSystems) : ''}
 
     <section class="grid">
-      <div class="panel">
+      <div class="panel" id="active-incidents">
         <div class="section-heading">
           <div>
             <p class="section-kicker">Now</p>
@@ -132,7 +132,7 @@ function groupSystems(model) {
 function renderSystems(groups) {
   return groups
     .map(
-      (group) => `<section class="panel">
+      (group, index) => `<section class="panel"${index === 0 ? ' id="systems"' : ''}>
       <div class="section-heading">
         <div>
           <p class="section-kicker">Systems</p>
@@ -377,13 +377,20 @@ a { color: #155bb5; text-underline-offset: 3px; }
   grid-template-columns: repeat(3, 1fr);
   margin-top: 12px;
 }
-.quick-stats div {
+.quick-stats a {
   border-left: 1px solid var(--line);
+  color: var(--text);
   padding-left: 10px;
+  text-decoration: none;
 }
-.quick-stats div:first-child {
+.quick-stats a:first-child {
   border-left: 0;
   padding-left: 0;
+}
+.quick-stats a:hover span,
+.quick-stats a:focus-visible span {
+  color: #0969da;
+  text-decoration: underline;
 }
 .quick-stats strong {
   display: block;
@@ -700,8 +707,8 @@ a { color: #155bb5; text-underline-offset: 3px; }
   .quick-stats {
     grid-template-columns: 1fr;
   }
-  .quick-stats div,
-  .quick-stats div:first-child {
+  .quick-stats a,
+  .quick-stats a:first-child {
     border-left: 0;
     border-top: 1px solid var(--line);
     padding: 10px 0 0;
