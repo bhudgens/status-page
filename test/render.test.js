@@ -12,7 +12,12 @@ test('renderer writes html json and css', async () => {
   const model = buildStatusModel({
     config: testConfig(),
     now: '2026-05-17T12:00:00Z',
-    issues: [issue({ title: 'Visible incident', comments: [{ body: 'Latest public update', createdAt: '2026-05-17T11:00:00Z' }] })]
+    issues: [
+      issue({
+        title: 'Visible incident',
+        comments: [{ body: '## Latest public update\n\n- First note', createdAt: '2026-05-17T11:00:00Z' }]
+      })
+    ]
   });
 
   await renderSite(model, { outDir });
@@ -22,6 +27,7 @@ test('renderer writes html json and css', async () => {
   await fs.access(path.join(outDir, 'assets', 'status.css'));
 
   assert.match(html, /Visible incident/);
-  assert.match(html, /Latest public update/);
+  assert.match(html, /<h2>Latest public update<\/h2>/);
+  assert.match(html, /View issue #1/);
   assert.equal(json.active_incidents[0].title, 'Visible incident');
 });
