@@ -20,6 +20,8 @@ export async function renderSite(model, { outDir = '_site' } = {}) {
 export function renderHtml(model) {
   const hasSystems = model.systems.length > 0;
   const groupedSystems = groupSystems(model);
+  const affectedSystems = model.systems.filter((system) => system.health.state !== 'operational').length;
+  const affectedDays = model.history.days.filter((day) => day.state !== 'operational').length;
 
   return `<!doctype html>
 <html lang="en">
@@ -32,24 +34,52 @@ export function renderHtml(model) {
 </head>
 <body>
   <main class="page">
+    <nav class="topbar" aria-label="Status page navigation">
+      <a class="brand" href="./">${escapeHtml(model.site.title)}</a>
+      <div class="topbar-links">
+        <a href="status.json">Status JSON</a>
+        <span>Backed by GitHub Issues</span>
+      </div>
+    </nav>
+
     <header class="hero ${severityClass(model.overall.severity)}-surface">
       <div class="hero-copy">
         <p class="eyebrow">Updated ${formatDateTime(model.generated_at)}</p>
         <h1>${escapeHtml(model.site.title)}</h1>
         <p>${escapeHtml(model.site.description || 'Current service status')}</p>
       </div>
-      <div class="overall">
-        <span class="status-dot ${severityClass(model.overall.severity)}"></span>
-        <strong>${escapeHtml(overallText(model))}</strong>
+      <div class="overall-card">
+        <div class="overall">
+          <span class="status-dot ${severityClass(model.overall.severity)}"></span>
+          <strong>${escapeHtml(overallText(model))}</strong>
+        </div>
+        <div class="quick-stats">
+          <div><strong>${model.active_incidents.length}</strong><span>Active incidents</span></div>
+          <div><strong>${affectedSystems}</strong><span>Affected systems</span></div>
+          <div><strong>${affectedDays}</strong><span>Affected days</span></div>
+        </div>
       </div>
     </header>
 
     <section class="panel history-panel">
       <div class="section-heading">
-        <h2>Last ${model.history.days.length} days</h2>
-        <span>${model.history.days.filter((day) => day.state !== 'operational').length} affected day(s)</span>
+        <div>
+          <p class="section-kicker">History</p>
+          <h2>Last ${model.history.days.length} days</h2>
+        </div>
+        <span>${affectedDays} affected day(s)</span>
       </div>
       ${renderHistory(model.history.days)}
+      <div class="history-foot">
+        <span>${escapeHtml(model.history.days[0]?.date || '')}</span>
+        <div class="legend">
+          <span><i class="legend-dot operational"></i>Operational</span>
+          <span><i class="legend-dot degraded"></i>Degraded</span>
+          <span><i class="legend-dot partial-outage"></i>Partial outage</span>
+          <span><i class="legend-dot major-outage"></i>Major outage</span>
+        </div>
+        <span>${escapeHtml(model.history.days.at(-1)?.date || '')}</span>
+      </div>
     </section>
 
     ${hasSystems ? renderSystems(groupedSystems) : ''}
@@ -57,14 +87,20 @@ export function renderHtml(model) {
     <section class="grid">
       <div class="panel">
         <div class="section-heading">
-          <h2>Active incidents</h2>
+          <div>
+            <p class="section-kicker">Now</p>
+            <h2>Active incidents</h2>
+          </div>
           <span>${model.active_incidents.length}</span>
         </div>
         ${renderIncidentList(model.active_incidents, 'No active incidents.')}
       </div>
       <div class="panel">
         <div class="section-heading">
-          <h2>Recent resolved incidents</h2>
+          <div>
+            <p class="section-kicker">Recently</p>
+            <h2>Resolved incidents</h2>
+          </div>
           <span>${model.recent_incidents.length}</span>
         </div>
         ${renderIncidentList(model.recent_incidents, 'No recently resolved incidents.')}
@@ -98,7 +134,10 @@ function renderSystems(groups) {
     .map(
       (group) => `<section class="panel">
       <div class="section-heading">
-        <h2>${escapeHtml(group.category.name)}</h2>
+        <div>
+          <p class="section-kicker">Systems</p>
+          <h2>${escapeHtml(group.category.name)}</h2>
+        </div>
         ${group.category.description ? `<span>${escapeHtml(group.category.description)}</span>` : ''}
       </div>
       <div class="systems">
@@ -117,6 +156,10 @@ function renderSystemCard(system) {
         <p>${escapeHtml(system.description || '')}</p>
       </div>
       <span class="badge ${severityClass(system.health.severity)}">${escapeHtml(system.health.display)}</span>
+    </div>
+    <div class="system-meta">
+      <span>${system.active_incident_numbers.length} active incident(s)</span>
+      <span>${system.history.filter((day) => day.state !== 'operational').length} affected day(s)</span>
     </div>
     ${renderHistory(system.history)}
   </article>`;
@@ -252,6 +295,30 @@ a { color: #155bb5; text-underline-offset: 3px; }
   margin: 0 auto;
   padding: 36px 0;
 }
+.topbar {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.brand {
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+.topbar-links {
+  align-items: center;
+  color: var(--muted);
+  display: flex;
+  gap: 14px;
+  font-size: 0.9rem;
+}
+.topbar-links a {
+  color: var(--text);
+  font-weight: 700;
+  text-decoration: none;
+}
 .hero, .panel {
   background: var(--panel);
   border: 1px solid var(--line);
@@ -263,7 +330,7 @@ a { color: #155bb5; text-underline-offset: 3px; }
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  padding: 34px;
+  padding: 36px;
   margin-bottom: 20px;
   border-top: 6px solid var(--operational);
 }
@@ -297,6 +364,38 @@ a { color: #155bb5; text-underline-offset: 3px; }
   border-radius: 999px;
   padding: 10px 14px;
 }
+.overall-card {
+  background: rgba(255,255,255,0.82);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  min-width: 320px;
+  padding: 14px;
+}
+.quick-stats {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 12px;
+}
+.quick-stats div {
+  border-left: 1px solid var(--line);
+  padding-left: 10px;
+}
+.quick-stats div:first-child {
+  border-left: 0;
+  padding-left: 0;
+}
+.quick-stats strong {
+  display: block;
+  font-size: 1.4rem;
+  line-height: 1;
+}
+.quick-stats span {
+  color: var(--muted);
+  display: block;
+  font-size: 0.76rem;
+  margin-top: 4px;
+}
 .status-dot {
   width: 16px;
   height: 16px;
@@ -320,6 +419,14 @@ a { color: #155bb5; text-underline-offset: 3px; }
 .section-heading h2 {
   font-size: 1.25rem;
 }
+.section-kicker {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  margin: 0 0 3px;
+  text-transform: uppercase;
+}
 .section-heading span, .incident-meta {
   color: var(--muted);
   font-size: 0.9rem;
@@ -334,6 +441,32 @@ a { color: #155bb5; text-underline-offset: 3px; }
   border-radius: 4px;
   background: var(--operational);
   box-shadow: inset 0 0 0 1px rgba(255,255,255,0.34);
+}
+.history-foot {
+  align-items: center;
+  color: var(--muted);
+  display: flex;
+  font-size: 0.82rem;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+.legend {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+.legend span {
+  align-items: center;
+  display: inline-flex;
+  gap: 5px;
+}
+.legend-dot {
+  border-radius: 50%;
+  display: inline-block;
+  height: 9px;
+  width: 9px;
 }
 .systems {
   display: grid;
@@ -353,7 +486,21 @@ a { color: #155bb5; text-underline-offset: 3px; }
   gap: 12px;
 }
 .system-header {
-  margin-bottom: 14px;
+  margin-bottom: 10px;
+}
+.system-meta {
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.84rem;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.system-meta span {
+  background: #f6f8fb;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 8px;
 }
 .badge {
   display: inline-flex;
@@ -534,15 +681,30 @@ a { color: #155bb5; text-underline-offset: 3px; }
 .major-outage-surface { border-top-color: var(--major-outage); background: linear-gradient(135deg, var(--major-outage-soft), #ffffff 58%); }
 
 @media (max-width: 720px) {
-  .hero, .section-heading, .system-header, .incident-title {
+  .topbar, .hero, .section-heading, .system-header, .incident-title, .history-foot {
     align-items: flex-start;
     flex-direction: column;
+  }
+  .topbar-links {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
   }
   .grid {
     grid-template-columns: 1fr;
   }
-  .overall {
+  .overall, .overall-card {
     white-space: normal;
+    width: 100%;
+  }
+  .quick-stats {
+    grid-template-columns: 1fr;
+  }
+  .quick-stats div,
+  .quick-stats div:first-child {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    padding: 10px 0 0;
   }
   .history-day {
     height: 22px;
