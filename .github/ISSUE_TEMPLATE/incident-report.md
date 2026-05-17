@@ -1,39 +1,27 @@
 ---
-name: Incident Report
-about: Report a system incident or outage
-title: '[Incident] Short description of the issue'
-labels: 
-  - status: investigating
-  - severity: minor
-assignees: ''
-
+name: Incident
+about: Open an incident that should affect the public status page
+title: "[Incident] "
+labels:
+  - status:investigating
+  - severity:degraded
+assignees: ""
 ---
 
-## Incident Details
+## Summary
 
-### Affected Systems
-<!-- List the systems impacted by this incident (use system: labels) -->
-- [ ] system: web-server
-- [ ] system: database
-- [ ] system: cdn
 
-### Incident Description
-<!-- Provide a clear and concise description of the incident -->
+## Impact
 
-### Impact
-<!-- Describe the specific impact on users or services -->
 
-### Initial Assessment
-<!-- What is known about the incident so far? -->
+## Affected Systems
 
-### Action Items
-<!-- List initial steps being taken to investigate and resolve the incident -->
-- [ ] Investigate root cause
-- [ ] Assess system impact
-- [ ] Develop mitigation strategy
+Apply one or more `system:<id>` labels that match `config/status-page.yml`.
 
-### Additional Context
-<!-- Any additional information that might be helpful -->
+## Current Status
 
-## Status Updates
-<!-- Updates will be added as comments to this issue -->
+Apply one `status:<state>` label and one `severity:<level>` label.
+
+## Updates
+
+- Initial report:

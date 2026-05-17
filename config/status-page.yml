@@ -1,0 +1,56 @@
+site:
+  title: Status Page
+  description: Service status derived from GitHub Issues.
+  timezone: America/Chicago
+  history_days: 30
+
+categories:
+  - id: core
+    name: Core Services
+    description: Primary user-facing services.
+  - id: infrastructure
+    name: Infrastructure
+    description: Shared platform dependencies.
+
+systems:
+  - id: web
+    name: Web App
+    description: Customer-facing web experience.
+    category: core
+  - id: api
+    name: API
+    description: Public and internal API surface.
+    category: core
+  - id: database
+    name: Database
+    description: Primary persistent storage.
+    category: infrastructure
+
+statuses:
+  investigating:
+    label: status:investigating
+    display: Investigating
+  identified:
+    label: status:identified
+    display: Identified
+  monitoring:
+    label: status:monitoring
+    display: Monitoring
+
+severities:
+  degraded:
+    label: severity:degraded
+    display: Degraded
+    rank: 1
+  partial-outage:
+    label: severity:partial-outage
+    display: Partial outage
+    rank: 2
+  major-outage:
+    label: severity:major-outage
+    display: Major outage
+    rank: 3
+
+defaults:
+  status: investigating
+  severity: degraded

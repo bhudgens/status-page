@@ -1,44 +1,110 @@
-# GitHub-Powered Status Page
+# GitHub-Native Status Page
 
-A modern, automated status page system powered by GitHub. This project leverages GitHub Issues, Actions, and Pages to provide a robust and easy-to-maintain status page solution.
+This repo builds a static status page from GitHub Issues.
 
-## Features
+Example status page: https://bhudgens.github.io/status-page/
 
-- Automated status updates from GitHub Issues
-- Real-time incident management
-- 30+ day status history
-- Mobile-responsive design
-- Multi-system status tracking
-- Automated builds and deployments
+- Issues are incidents.
+- Labels are structured incident metadata.
+- `config/status-page.yml` defines public systems and categories.
+- GitHub Actions queries issues with `gh`, renders static files, and publishes them with GitHub Pages.
 
-## Project Structure
+See [VISION.md](VISION.md), [CONTEXT.md](CONTEXT.md), [PLAN.md](PLAN.md), and [.adr/](.adr/) for the product direction and decisions.
 
-```
-.
-├── .github/         # GitHub specific files (workflows, templates)
-├── config/          # Configuration files
-├── content/         # Hugo content files
-├── layouts/         # Hugo layout templates
-├── static/          # Static assets
-└── docs/           # Generated site (for GitHub Pages)
-```
+## How It Works
+
+An open issue means something is affected. Closing the issue resolves the incident.
+
+Labels make the incident machine-readable:
+
+- `system:<id>` maps the incident to a configured system.
+- `status:<state>` tracks lifecycle, such as `status:investigating`.
+- `severity:<level>` controls impact, such as `severity:degraded`.
+
+If an issue has no `system:<id>` label, it is shown as a global incident. If an issue has an unknown `system:*` label or no severity label, the page still renders and `status.json` includes a warning.
+
+The generated page is static. The browser does not call GitHub.
 
 ## Setup
 
-1. Install dependencies:
+Install dependencies:
+
 ```bash
 npm install
 ```
 
-## Development
+Authenticate `gh` for local builds and label sync:
 
-To build the site:
+```bash
+gh auth status
+```
+
+Edit [config/status-page.yml](config/status-page.yml) to define the site title, categories, systems, statuses, severities, and defaults.
+
+## Labels
+
+This repo declares expected GitHub labels in [.github/labels.json](.github/labels.json).
+
+Sync labels with:
+
+```bash
+npm run sync-labels
+```
+
+The sync command creates missing labels and updates colors/descriptions for existing labels. It is intentionally separate from rendering so status builds read issue data without mutating repo settings.
+
+For systems, labels must match configured ids exactly:
+
+```yaml
+systems:
+  - id: api
+    name: API
+```
+
+Uses this GitHub label:
+
+```text
+system:api
+```
+
+## Local Build
+
+Run tests:
+
+```bash
+npm test
+```
+
+Build the status page from live GitHub Issues:
+
 ```bash
 npm run build
 ```
 
-This will generate the site in the `docs` directory, which is used for GitHub Pages. Note: While Hugo can be run directly with `hugo`, it's recommended to use `npm run build` to ensure the output goes to the correct directory.
+Generated files are written to `_site/`:
 
-## Contributing
+```text
+_site/
+├── index.html
+├── status.json
+└── assets/status.css
+```
 
-[Documentation coming soon]
+`_site/` is ignored and should not be committed.
+
+## Incident Workflow
+
+1. Open a GitHub issue with the incident title and initial description.
+2. Add one or more `system:<id>` labels if specific systems are affected.
+3. Add one `severity:<level>` label.
+4. Add one `status:<state>` label.
+5. Post incident updates as issue comments.
+6. Close the issue when the incident is resolved.
+
+The public incident message is the latest issue comment when one exists, otherwise the issue body.
+
+## GitHub Pages
+
+The workflow in [.github/workflows/status-page.yml](.github/workflows/status-page.yml) rebuilds on issue and issue-comment changes, then deploys `_site/` using GitHub Pages artifacts.
+
+In repository settings, configure Pages to deploy from GitHub Actions.

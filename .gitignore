@@ -6,6 +6,7 @@ vendor/
 dist/
 build/
 public/
+_site/
 
 # Environment files
 .env

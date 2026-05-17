@@ -1,23 +1,19 @@
 {
-  "name": "status-page",
-  "version": "1.0.0",
-  "description": "A modern, automated status page system powered by GitHub. This project leverages GitHub Issues, Actions, and Pages to provide a robust and easy-to-maintain status page solution.",
-  "main": "index.js",
+  "name": "github-native-status-page",
+  "version": "0.1.0",
+  "description": "A static status page generated from GitHub Issues.",
+  "type": "module",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "validate": "node scripts/validate-config.js",
-    "prepare": "husky install",
-    "build": "hugo --destination docs --cleanDestinationDir",
-    "dev": "hugo server -D --destination docs"
+    "build": "node src/cli.js build",
+    "render": "node src/cli.js render",
+    "sync-labels": "node src/cli.js sync-labels",
+    "test": "node --test"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "engines": {
+    "node": ">=20"
+  },
   "dependencies": {
-    "ajv": "^8.17.1",
-    "ajv-formats": "^3.0.1"
-  },
-  "devDependencies": {
-    "husky": "^9.1.7"
+    "js-yaml": "^4.1.0"
   }
 }
